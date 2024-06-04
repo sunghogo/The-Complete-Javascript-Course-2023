@@ -1,0 +1,301 @@
+JavaScript Fundamentals - Part 1
+
+L7 Hello World!
+    Install Chrome and open Developer Console
+    Can compile and execute JS code from the browser
+
+L8 A Brief Introduction to JavaScript
+    JavaScript versions are ES# (ECMAScript)
+        Modern JS is ES6(2015)-ES11(2020)
+
+L9 Linking a JavaScrip File
+    ';' at the end as delimiter is not necessary but good practice
+
+    Ctrl + B in VSCode to get rid of side popout
+
+    Linking to <script src=""></script> is usually at the end of the html body tag
+
+L10 Values and Variables
+    Variables store literal values
+
+    Great for managing and retrieving values
+
+    Camelcase is common in JS, snakecase in Ruby and etc.
+
+    JS variables cannot start with a number; variable names can only contain letters, numbers, underscores, or dollar sign
+
+    JS variables also cannot be exactly named after reserved keywords like 'new' or 'function'; They can be named after nonreserverd keywords like 'name' but not good practice
+
+    JS variables also should not begin with upper case for convention
+
+    JS Variables that are all in uppercase are reserved for constants like 'PI'
+
+    JS Variable names should be descriptive for cleaner code
+
+L12 Data Types
+    Every JS value is an Object or Primitive value
+
+    7 Primitive Data Types:
+        Numbers: In JS, all floating point numbers used for decimals and integers
+        String: Sequence of characters used for text
+        Boolean: Logical type that can only be true or false used for decision making
+        Undefined: Value taken by a variable that is not yet defined ('empty value')
+        Null: Also means 'empty value' in different context
+        Symbol (ES2015): Value that is unique and cannot be chaned [Not useful for now]
+        BigInt (ES2020): Larger integers than the Number type can hold
+
+    JS has dynamic typing: We do not have to manually define the data type of hte value stored in a variable (VALUE has type, NOT variable). Instead, data types are determined automatically
+
+    Code comments are not executed
+    '//' for single line commenting
+    '/* */' for multi line commenting
+    CTRL + / to create single line comments
+
+    JS is sequentially exectued
+
+    'typeof' operator to see data type of value
+
+    String values needs matching single or double quotes
+
+    'let' is only used for declaring a variable for the first time
+
+    null outputs an object type, which is a bug preserved for legacy resasons
+
+L13 let, const, var
+    let and const were introduced in ES6/Modern JS
+    var is the old way of declaring variables prior to ES6
+
+    reassigning a value to variable is also called "mutating" a variable
+
+    let is declare (mutable) variables that are supposed to have changing values
+
+    const is declare (immutable) variables that are not supposed to/cannot change; so we cannot declare empty const variables
+
+    good practice to have as little variable mutation so use const/declare accordingly
+
+    let and var is pretty different under the hood, and var is depcrecated/no longer used
+
+    let is block-scoped and var is function-scoped
+
+    not declaring a variable and assigning a value does not actually create a variable within the scope, but a property on the global object
+
+L14 Basic Operators
+    Operators does work with values
+
+    Different Types of Operators:
+    Mathematical
+    Comparison
+    Logical
+    Assignment
+    Etc.
+
+    console.log(value1, value2, value3, ...);
+
+    replace literal values used multiple times with variables
+
+    Mathematical operators:
+    Addition & Concatenation: +
+    Subtration: -
+    Multiplication: *
+    Division: /
+    Exponentiation: **
+
+    Operator precedence such that mathematical operators calculated first before assignment operator
+
+    Assignment operators:
+    Assignment: =
+    Add then assign: +=
+    Subtract then assign: -=
+    Multiply then assign: *=
+    Divide then assign: /=
+    Increment by 1: ++
+    Decrement by 1: --
+
+    Comparison operators:
+    ltt: <
+    gtt: >
+    lte: <=
+    gte: >=
+
+    Normally save the output of these operators/calculations in a variable
+
+    Console has access to variables from script
+
+L15 Operator Precedence
+    Check operator precedence table at MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+
+    Math operators are generally executed before comparison operators
+
+    Most operators are executed left-to-right except Assignment Operators and Exponentiation
+
+    You can declare multiple variables in one line separated by a comma; You can assignm multiple variables in one line separated by '=';
+
+    Grouping/Parentheses has highest precedence
+
+    PEMDAS Mathematical precedence holds
+
+L17 Strings and Template Literals
+    Numbers are automatically type converted into string for string concactenations
+
+    Template literals (ES6+) can be used to assemble strings in more a natural way
+
+    Literals begin/end with backticks `` and variables are dereferenced using '${variable}'
+
+    Some developers use backticks for all strings
+
+    Before ES6, multiple line strings required '\n\' character but with template literals, it processes new lines naturally
+
+L18 Taking Decisions if / else Statements
+    if the conditions in the () is true, then the block of code in {} is executed; else it executes the else block {} and moves on if there is no else
+
+    condition is any code that returnes a true / false boolean value
+
+    WIN + . is the emoji shortcut on windows
+
+    this if / else statement is a control structure that controls how the code is executed
+
+    variables declared inside the code block is not accessible outside the code block / scope
+
+L20 Type Conversion and Coercion
+    In JS, there is type conversion (manually/explicitly type convert/cast) and type coercion (when JS automatically/implicitly converts types for us behind the scenes)
+
+    Converting a string that is not a valid number returns a 'NaN' which is not a number/not a valid number (still type number)
+
+    Conversion Functions:
+    Number()
+    String()
+
+    Type coercion happens when two values have different types, and JS converts behind the scenes
+
+    + operator triggers coercion to string
+    -, *, /, ** operators triggers coercion to number
+
+    Many believe that type coercion is not good practice because of unexpected bugs, but it can useful/powerful when understood
+
+L21 Truthy and Falsy Values
+    Falsy values are values that are not exactly false but will become false if we try to convert them
+
+    JS has 5 falsy values:
+    0
+    ""
+    undefined
+    null
+    NaN
+
+    Everything else is a truthy value that will converted to true
+
+    Type coercions to booleans happen when using logical operators or logical context like if / else condition statement
+
+L22 Equality Operators: == vs. ===
+    === strict equality operator does not perform type coercion and return true if both values are exactly the same
+
+    == loose equality operator does type coercion before comparing values
+
+    The loose operators can introduce weird behavior and bugs
+    
+    Best practice for clean code is to always use the strict equality operator
+
+    prompt() to get string input from user
+
+    if / else if / else - 'else if' can be used to check for additional conditions
+
+    !== strict not equal operator
+    != loose not equal operator
+
+L23 Boolean Logic
+    Boolean logic is a branch of CS that uses true and false values to solve complex problems 
+
+    AND operator returns true only if A and B are both true
+
+    OR operator returns true if A or B are either true
+    
+    NOT operator inverts true/false value
+
+    NOT operator has precedence over AND and OR
+
+L24 Logical Operators
+    &&: AND
+    ||: OR
+    !: NOT
+
+L26 The switch Statement
+    switch statement used to compare one value to multiple different values; alternative to conditional statements
+
+    Most of data comes from user input so in the real world, we would not be hard coding inputs like this
+
+    switch() cases compares in strict equality
+
+    Need a 'break' statement at the end of each case otherwise the code will continue executing into other cases, which may be useful for multiple cases to have the same output
+
+    Set a 'default' case that will be executed if all the other cases fail
+
+    switch('variable name') {
+        case 'value 1':
+        case 'value 2':
+            "case body"
+            break;
+        case 'value 3':
+            "case body"
+            break;
+        default: 
+            "default body"
+    }
+
+L27 Statements and Expressions
+    An expression is a piece of code that produces a value
+
+    A declaration/statement is like a complete sentence while expressions are words that up the sentence
+
+    Statenents do no produce a value like an if / else statement and switch statement
+
+    JS expects statements and expressions in different places
+
+    Template literals can only insert expressions but statements
+
+    Variables are also expressions
+
+L28 The Conditional (Ternary) Operator
+    Three ways of writing conditions:
+    if / else statements
+    switch statements
+    conditional (ternary) operator
+
+    The Conditional Operator allows if / else functionality all in one line
+
+    ?: Conditional/Ternary Operator
+
+    The Conditional Operator has three parts:
+    condition ? if part : else part
+
+    An operator always produces a values; an operator is an expression so the Conditional/Ternary operator is an expression
+
+    Conditional/Ternary operator useful for declaring variables conditionally, otherwise have to declare and then assign variable separately
+
+    Conditional/Ternary Operator is not a replacement for bigger if else statements with multiple conditions/else ifs
+
+L30 JavaScript Releases: ES5, ES6+ and ESNext
+    JavaScript Summary:
+    1995 - Brendan Eich/Netscape creates JS/Mocha
+    1996 - Mocha -> LiveScript -> JavaScript
+         - Microsoft IE launches with JScript
+    1997 - Standardized ECMASript1(ES1)
+    2009 - ES5 (Lots of features)
+    2015 - ES6 (Biggest update), ECMAScript changes to annual release cycle
+    2016 - Present - ES2016...ES2023
+
+    Modern JS Engine is backwards compatible, but not forwards compatible
+
+    Development phase is when you are building the site or application on your computer; Simply use the latest chrome/browser version to be up to date with current ES version
+
+    Production phase is when the web application is finished, and then it's running in your user's browsers; We cannot control which browser and what version the users are using
+
+    The solution to this problem is to convert the modern JS versions back to ES5 using transpiling and polyfilling (Babel)
+
+    ES5: Fully supported in all browsers down to IE9 from 2011 (which is why we use it as a target for transpiling) - Ready to be used today
+
+    ES6+: Well supported in all modern browsers, but no support in older ones - Can use most features in production with transpiling and polyfilling
+
+    ESNext: Future version of the language (new feature proposals that reach Stage 4 or Stage 3 since those are almost guaranteed to be pass onto Stage 4) - Can use some features in production with transpiling and polyfilling
+
+    ES6+ Compatibility Chart:
+    https://kangax.github.io/compat-table/es6/

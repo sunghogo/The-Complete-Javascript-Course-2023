@@ -1,0 +1,141 @@
+L55 Setting up Prettier and VS Code
+    Prettier - strong opinionated code formatter
+        Makes assumptions on good code format upon saving like:
+            white spaces
+            double quotes
+            arrow function parameter parentheses
+
+        Steps:
+            1. Install extension
+            2. Make Prettier our default formatters:
+            3. File -> Preferences -> Settings (CTRL + ,)
+            4. Default Formatter: esbenp.prettier-vscode
+            5. Format on Save: Checked
+        
+        Change default options listed on the site:
+        https://prettier.io/docs/en/options.html
+        
+        Create a '.prettierrc' JSON/YAML configuration file, and then create an object ('{}') with the changed option properties and their values 
+
+    VSCode User Snippets:
+        1. File -> Preferences -> Configure User Snippets
+        2. Create New Global Snippets File
+        3. Example Snippet for console.log:
+            Define scope for which languages it works
+            Define prefix/shortcut for autocomplete
+            Define body ($1 defines where the cursor goes)
+            Define description
+
+    Other Notable VSCode Extensions:
+        Auto Close Tag
+        Auto Rename Tag
+        ESLint
+        Image preview
+        Monokai Pro
+        Prettier
+        Settings Sync (Deprecated: Use in-built Settings Sync)
+        TODO Highlight:
+            1. File -> Preferences -> Settings (CTRL + ,)
+            2. Open Settings (JSON) icon
+            3. Specify settings ("todohighlight.")            
+
+
+L56 Installing Node.js and Setting Up a Dev Environment
+    Everyone uses tools to automatically refresh pages to see changes (web development environment)
+
+    Two Approaches:
+        Live Server VS Code Extension
+        Node.js and live server npm package (more professional environment)
+
+    Live Server:
+        1. "Go Live" button at the bottom of VS Code
+        2. Opens browser with local host server and port that automatically updates
+
+    Node.js is a way of running JS outside the browser, and also running development tools
+
+    Node.js:
+        1. https://nodejs.org/en
+        2. Download and Install latest LTS version
+        3. Open the VS Code Terminal (CTLR + ~)
+        4. 'node -v' to check Node.js installation version (For Windows, if the path is not specified, go into User Accounts and change environmental variables, create a new variable "node" with value "C:\Program Files\nodejs")
+        5. 'npm install live-server -g' (npm is the node package manager, install is the command to install, live-server is the package name, and -g means the option to install globally)
+        6. 'live-server' to run live server in a browser (If powershell shows an error about "cannot be loaded because running scripts is disabled on this system", type:
+         'Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted')
+         7. 'CTRL + C' in the terminal to turn off the server
+    
+    In VS Code terminal, shortcut to clear terminal:
+    CTRL + K (Doesn't work for me)
+
+
+L57 Learning How to Code
+    Process:
+        1. Have a clear, realistic, and well-defined goal
+        2. Always type and understand code
+        3. Reinforce new features and concepts (try codewars challenges)
+        4. Practice coding on your own / Come up with your own project ideas
+        5.  Do not get stuck or frustrated with the quality of code
+        6. Accept that you will never understand everything about web development / Keep motivation up
+        7. Do not learn in isolation
+        8. Courses are just starting points
+
+    Journey:
+        1. Everything is awesome (Most courses will start and end here)
+        2. Cliff of confusion (Coding on your own)
+        3. Pit of despair (Understanding how far behind to build proper applications - Learn with other people and keep challenging yourself)
+        4. Back to awesome (Start learning new technologies or rounding out your skill set)
+        5. Job Ready (Need good portfolio but you will never stop learning)
+
+    
+L58 How to Think Like a Developer: Become a Problem Solver!
+    Problem Solving Process:
+        1. Make sure 100% understand the problem. Ask the right questions to get a clear picture of the problem.
+        2. Divide and conquer: Break a big problem into smaller sub-problems
+        3. Don't be afraid to do as much reasearch as you have to
+        4. For bigger problems, write pseudo-code before writing the actual code
+
+
+L59 Using Google, StackOverflow and MDN
+    Ask the right questions to a problem to break down the proper specifications
+
+    Divide the problem into sub-problems
+
+    Resarch answers into problems/sub-problems using:
+        Google: Useful for searching questions
+        StackOverflow: Useful for researching answers
+        MDN: Useful for documentation on in-built methods and functionality
+
+    'array 1'.concat('array 2') method to concat two arrays together
+
+
+L60 Debugging (Fixing Errors)
+   Software bug: Defect or problem in a computer program. Basically, any unexpected or unintended behavior of a computer program is a software bug
+
+   Bugs are completely normal in software development
+
+   Debugging: Process of finding, fixing, and preventing bugs
+
+   Debugging Process:
+    1. Identify - Becoming aware that there is a bug:
+        During development, testing software, user reports during production, context: browsers, users, etc.
+    2. Find - Isolating where exactly the bug is happening in the code:
+        Developer console (simple code), debugger (complex code)
+    3. Fix - Correct the bug:
+        Replace wrong solution with correct solution
+    4. Prevent - Preventing in from happening again:
+        Searching for the same bug in a similar code, writing tests using testing software
+
+
+L61 Debugging with the Console and Breakpoints
+    console.warn() and console.error() to see warning and error messages in console
+
+    console.table() shows objects in a nicely formatted table
+
+    Debugger in Google Chrome:
+        1. Open Chrome Developer Tools -> Sources -> JS script file
+        2. Navigate to two debugger panels
+        3. Go to line of interest, and click to the left the line number to add/remove a breakpoint (after reloading, the code execution will stop at the breakpoint and show values in code)
+        4. You can check values either in the Scope tab or by hovering over them in the script
+        5. You can Step into the code execution line by line
+        6. You can Resume to continue the code execution until the next breakpoint/end
+
+    'debugger' keyword in JS will set up an inline breakpoint and open up the browser debugger at the line

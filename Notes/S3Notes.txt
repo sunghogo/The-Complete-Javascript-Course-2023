@@ -1,0 +1,323 @@
+L32 Activating Strict Mode
+    Activate strict mode to write more secure JS code by writing this string at the beginning:
+    'use strict'; 
+
+    This string has to be the very first statement otherwise it will not be activated; comments are allowed
+
+    We can also activate strict mode for a specific block or function
+
+    Strict mode forbids us to do certain things, and will create visible errors in certain situations leading to more secure code
+
+    Checks for variable definitions
+
+    Prevents short list of variable names that are reserved for features that may be added to the language later; Similar to prventing the use of keywords as variable names
+
+
+L33 Functions
+    Function is reusable chunks of code that allows us to write more maintainable code; like variables but for whole blocks of code
+
+    Variables hold a value, functions hold one or more complete lines of code
+
+    'function' keyword
+
+    function name(inputs) {
+        "function body"
+    }
+
+    Using/Executing the function is also called invoking, running, or calling the function
+
+    We can pass and return data to/from a function
+
+    Parameters are like input variables that are specific only to this function, and are defined once the function is called
+
+    'return' keyword to return values from the function that we can store in variables
+
+    When invoking a function, we pass in real values that will be assigned to the parameters, which are called the arguments of a function
+
+    Specifying arguments or writing functions that are not called will not be executed
+
+    Functions that do not return a value will return a 'undefined' value
+
+    Clean Code: DRY Principle - Don't Repeat Yourself
+
+    console.log(), Number(), String() are built-in functions
+
+    Once again, you can type variable names in the developer console to see their values
+
+
+L34 Function Declarations vs. Expressions
+    Function declarations using the function keyword and a name
+
+    Function expressions are using the function keyword without a name, also called an "anonymous function" 
+
+    Parameters are like the placeholders for the inputs of a function, while the arguments are the actual values
+
+    You can store functions in a variable as they are expressions that produce a value; you can then call the function using the variable name
+
+    The main difference between function declarations and expressions is that you can call function declarations before they are defined in the code but not with expressions - this is due to a process called hoisting
+
+    Both have their uses, and based on developer's preference
+
+
+L35 Arrow Functions
+    Arrow function is a special form function expression that is shorter and faster to write
+
+    parameter => "Function Body"
+
+    No need for curly braces and return happens implicitly; excellent for simple one liners
+
+    For more than one lines, need curly braces and explicit return statement for that block
+
+    For more than one arguments, need parteneses around the arguments
+
+    Arrow functions lose their advantage in longer functions
+
+    Arrow functions do not get a so called 'this' keyword
+
+    In VSCode, to wrap word in parentheses/other characters:
+    Select word, () / ' / " / {} / etc.
+
+    In VSCode, shortcut to scroll to beginning/end line:
+    CTRL + home/end
+
+    In VSCode, shortcut to switch tabs:
+    CTRL + pg up/ pg dn
+
+
+L36 Functions Calling Other Functions
+    Functions can call other functions, which is useful for the DRY principle and cleaner/maintainable code
+
+    Function Data/Control Flow for example: 
+    2 is passed to apples paramenter of fruitProcessor(), which is then passed to fruit paramenter of cutFruitPieces(), and stored in variable applePieces
+
+    Similarly, 3 is passed to oranges of both parameters, and stored into variable orangePieces
+
+    In VSCode, shortcut to go to line:
+    CTRL + G, input line number
+
+
+L37 Reviewing Functions
+    Two functions can have the same parameter names because they are not related/in scope of each other (similar to local variables)
+
+    Similarly paramenter can have the same name as a declared variable as they are NOT related
+
+    Functions are NOT TYPED, can return values of different types
+
+    Once a function returns, all code after the return statement will not be executed as the function will immediately exit
+
+    Function Review:
+        Function declaration - Functions that can be used before it's declared
+        Function expression - Essentially a funciton stored in a value
+        Arrow function - Great for one-line functions. Has no 'this' keyword.
+
+    Function Anatomy:
+        function 'function name'('parameter 1', parameter 2', etc...) {
+            'function body'
+            return 'return expression';
+        }
+    
+    Function Call:
+        const 'variable name' = 'function name'('parameter 1', parameter 2', etc...);
+
+    In VSCode, shortcut to move line up/down:
+    ALT + up key/down key 
+    In VSCode, short to select and move to next occurence:
+
+    In VSCode CTRL + D to selecet all occurences, CTRL + D select first occurence, CTRL + D to create new cursor and move/select onto next occurence
+
+    In VSCode, to move to different splt tab window:
+    CTRL + 1/2/3/...
+    
+    In VSCode, to move current tab to new spl5t tab window:
+    CTRL + ALT + right key/right key
+
+    In VSCode, to move cursor to start/end of line:
+    CTRL + K, CTRL + S: Edit cursorLineStart/cursorLineEnd
+    Removed page lines scrolling, remapped to:
+    CTRL + up arrow/down arrow
+
+
+L39 Introduction to Arrays
+    Data structures that are like big containers where we can store variables/values, and then return it
+
+    Two most important data structures in JavaScript are:
+        Arrays
+        Objects
+
+    Arrays store values, also referred to as elements, in order
+
+    Two ways to create an array:
+        Array Literal Syntax/"Brackets":
+        const 'array name' = ['value 1', 'value 2', etc..]
+
+        'new' keyword:
+        const 'array name' = new Array('value 1', 'value 2', etc..)
+
+    Array index/positions start from 0
+
+    We can get the length of an array using .length property (of array objects)
+
+    Inside the brackets, we can put in any expression but not statements
+
+    Arrays are mutable (in values and size)
+
+    'const' makes only primitive values immutable, not data structures due to how JS stores things in memory; however, we cannot reassign a new array to a const variable
+
+    Arrays can hold values of different types, and also hold other arrays
+
+    In the developer console, you can expand an array to see additional details
+
+    Adding/+ to an array does type coercian to the array, turning it into a  string with all the array values in 'value1, value2, etc..' format before concatenation
+
+    Other mathematical operations on an array will return 'NaN'
+
+
+L40 Basic Array Operations (Methods)
+    JS has some built-in functions that apply to arrays, and these array operations are called methods
+
+    .push() is a method that appends a new value to the end of array, and returns the length of the new array
+
+    .unshift() is a method that prepends a new value to the start of array, and returns the length of the new array
+
+    .pop() is a method that removes the last value from the end of array, and returns the popped value
+    
+    .shift() is a method that removes the first value from the start of array, and returns the shifted value
+
+    .indexOf() is a method that returns the index of the passed element we want to reference, and returns -1 if not found
+
+    .includes() is an ES7/ES2016 method that returns true if the passed element is in the array, and false if not; this method uses strict equality
+
+
+L42 Introduction to Objects
+    Using multiple lines in data structure declaration is good for seeing the overview of the structure and cleaner code
+
+    In arrays, there is no way to reference elements by name, only by their index number
+
+    Objects define key/value pairs
+
+    New Objects are declared using '{}', which is different from the curly braces used to define code blocks in if / else, switch, function body statements
+
+    const 'variable name' = {
+        'propery 1' : 'value 1',
+        'property 2' : 'value 2',
+        etc..
+    }
+
+    Each of the keys are also called properties
+
+    To create an object:
+        Object Literal Syntax/"Curly Braces":
+        const 'object name' = {'value 1', 'value 2', etc..}
+
+        'new' keyword:
+        const 'array name' = new Array('value 1', 'value 2', etc..)
+
+    The big difference between objects and array is that in objects, the order of the properties does not matter but in arrays, the order of elements does matter
+
+
+L43 Dot vs. Bracket Notation
+    Two ways to retrieve values from objects:
+        Dot Notation:
+            'object name'.'property name'
+
+        Bracket Notation:
+            'object name'[" 'property name' "]
+    
+    '.' is an operator that will go to the specified object, and in this case, retrieve from the specified property
+
+    The big difference in the two notations is that with bracket notation, we can put any expression we like as long as it computes to appropriate proprty string
+
+    Use the dot notation which is cleaner when expressions does not need to be calculated for the property name
+
+    Accessing an undefined property returns 'undefined'
+
+    To add new properties to the object:
+        Dot Notation:
+        'object name'.'property name' = 'value'
+
+        Bracket Notation:
+        'object name'[" 'property name' "] = 'value'
+
+        Going back to operator precdence, Member Access/'.' and Computer Member Access/'[]' have really high priority, just below Grouping/'()'
+
+
+L44 Object Methods
+    Objects can hold any values, including arrays and other objects
+
+    Functions (expressions) are just another type of value, so we can create key:value pairs where values are functions
+
+    Any function attached to an object is called a method; methods are actually properties holding a function value
+
+    Function declaration/statements do not work in objects
+
+    In JS, every method has a access to a special variable called 'this'; This is equaivalent to the object calling the method
+
+    In VSCode, shortcut to multi-line comment:
+    SHIFT + ALT + A
+
+    Can also reference the object by name, but it violates the DRY principle (ie. changing the object name means having to change object references)
+
+    Can use the object methods to calculate and store the result in a new/existing property
+
+    Arrow function expression access global object; can't be used to access object properties
+
+    Arrays are actually special objects that have built-in methods
+
+
+L45 Coding Challenge #3
+    Calling object methods without '()' returns the entire function in string as a value
+
+    Object properties cannot be initially defined using other properties as properties are not intialized/are undefined
+
+
+L46 Iteration: The for Loop
+    Control Strucutres:
+        Conditionals: if/else statements, case statements, conditional ternary operator
+        Loops: for loop, while loop
+
+    for loop is a loop with a counter that continues looping while the loop condition is true
+
+    for Loop Anatomy:
+    for('counter declaration'; 'loop condition'; 'counter increment') {
+        "loop body"
+    } 
+
+    for (let counter = 0; counter <= 10; counter increment/decrement) {
+        "loop body"
+    }
+
+
+L47 Looping Arrays, Breaking and Continuing
+    'i' is generally used counter name
+
+    Dynamically calculate array length to use as loop condition to adhere to DRY principle
+
+    Iteration is useful either reading or modifying arrays
+
+    'continue' is to exit the current iteration of the loop and continue to the next one
+
+    'break' is used to completely terminate the whole loop
+
+
+L48 Looping Backwards and Loops in Loops
+    You can loop backwards by setting the counter to the length of the object and decrementing the counter
+
+    You can nest loops; inner loops can access variables from outer loops
+
+
+L49 The while Loop
+    The while loop can only specify a condition; more versatile than the for loop as all it needs is a condition that dooes not have to be associated with a counter
+
+    while Loop Anatomy:
+    while ('loop condition') {
+        "loop body"
+    }
+
+    while (true) {
+        "loop body"
+    }
+
+    Infinite loops will crash the browser
+
+    while loop is for when you do not know how many iterations the loop will have; otherwise use the for loop
+

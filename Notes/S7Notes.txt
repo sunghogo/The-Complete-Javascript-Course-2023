@@ -1,0 +1,156 @@
+L70 PROJECT #1: Guess My Number!
+    We can select elements in JS just like in CSS:
+        document.querySelector('./#/ / selector');
+
+    To get the text content instead of the entire HTML element, use '.textContent' method after selector:
+        document.querySelector('selector').textContent;
+
+
+L71 What's the DOM and DOM Manipulation
+    DOM - Document Object Model:
+        Structured represenation of HTML documents. Allows JS to acces HTML elements and styles to manipulate them.
+
+    DOM is a connection point betweem HTML documents and JavasSript; DOM specification ensures the same functionality across different browsers
+
+    DOM is automatically generated as soon as HTML loads, and is stored in a tree structure containing each HTML element
+
+    Parent elemet, child element, sibling element terms used to refer to the nodes and their relationships
+
+    DOM always starts with the special 'Document' object at the very top
+
+    DOM -> <html> element -> <head> and <body> element -> etc..
+
+    DOM Methods and Properties for DOM Manipulation IS NOT a part of JS; Instead they are part of the Web APIs (timers, fetch API, etc.) which can interact with JS
+
+
+L72 Selecting and Manipulating Elements
+    You can assign new values to '.querySelector()' and '.textContent' using JS '='
+
+    Use .'value' to get the value (of input)
+
+    Once again, in VS Code, to move a line up or down, use ALT + UP/DOWN
+
+
+L73 Handling Click Events
+    An event is something that happens on the page
+
+    Add event listeners to wait for certain events to happen and then react to it using:
+        '.addEventListener('type/name of event', 'function expression')'
+
+    The event handler is a function that is executed in reaction to an event; The JS engine will run the function even though it is not called anywhere in the script
+
+    Usually when we get something from the user interface, it usually in 'string'
+
+    For input fields, check for cases when there are no inputs; In this case for 'input type="number"', an empty field defaults to 0 so it is a falsy value
+
+
+L74 Implementing the Game Logic
+    Math is an object that JS gives us:
+        Math.random() gives us a value from 0 to 1
+        Math.trunc() gives us a truncated/rounded value
+
+    Save data from the DOM that will be often manipulated in a variable in code
+
+    Application state and state variables which are relevant to the application
+
+
+L75 Manipulating CSS Styles
+    DOM also incluse CSS styles
+
+    To select and change CSS style use '.style.'name of property'' method and then assign the string value:
+        The properties will be converted to camel case instead of use '-'
+
+    This styles are set as inline styles so will have precedence over internal & external CSS
+
+
+L76 Coding Challenge #1
+    Handler functions without a name are once again called anonymous functions`
+
+
+L77 Implementing Highscores
+
+
+L78 Refactoring Our Code: The DRY Principle
+    DRY = Don't Repeat Yourself
+
+    You don't want duplicate code because if you want tmake changes, you have to change it in multiple sections
+
+    It's ok to start out with duplicate code but you will want to refactor later on
+
+    Refactoring is restructing the code without changing functionality
+
+    Another good refactoring technique is to create functions; In this case, setting the text content and generating the secret number
+
+
+L79 PROJECT #2: Modal Window
+    Usually organize all the selected elements at the beginning/top into variables
+
+    document.querySelector() only shows the first match
+    
+    Use document.querySelectorAll() to select all instances of element/class as a NodeList which is similar to an array; iterate through the list to access each element
+
+
+L80 Working With Classes
+    You can iterate through a NodeList and .addEventListener() to each element
+
+    .classList property has a couple methods:
+        classList.remove('class name') (class name does not need '.' in front)
+
+        classList.add('class name')
+
+        ckassList.contains(`class name`)
+    
+    You could manually change each style property value, but it is better to aggregrate all the properties into a class, and then add/remove the class from the element wherever needed 
+
+    When passing functions to .addEventListener, use the variable without the '()' as that will only refrence/define the function instead of calling it 
+
+
+L81 Handling an "Esc" Keypress Event
+    Keyboard events are global events that do not happen on one specific element, and usually listen on the whole document:
+        document.addEventListener()
+
+    For key event listeners, there are three types:
+        1. 'keypress' - When the key is pressed down continously
+        2. 'keyup' - When the key is released
+        3. 'keydown' - When the key is pressed
+
+        These listen for ANY keys, 
+
+    When an event occurs, JS creates an object containing information about the event itself, which is passed to the first parameter in the addEventListenr() event handler function
+
+    For key events, use 'key' or 'code' property to find which key was pressed
+
+    You can aggregrate conditions with '&&': AND as well as '||': OR
+
+
+L82 PROJECT #3: Pig Game
+    Flow Chart:
+        It's a representation of everything that can happen in the application
+    
+    Another way to get ID Selector:
+        document.getElementById('id name')
+
+
+L83 Rolling the Dice
+    Comments are good way to structure the code (pseudocode)
+
+    You can specify and change the source attribute:
+        document.querySelector('element name').src
+
+
+L84 Switching the Active Player
+    You can toggle classes so that if it is there, it removes it, and if it isn't, it adds it:
+        document.querySelector('elemnt name').classList.toggle('class name')
+
+
+L85 Holding Current Score
+    Create state variables determine the state of the system
+
+
+L86. Resetting the Game
+    You can assign multiple variables:
+        a = b = c = 1;
+    
+    You can .add() and .remove() multiple classes at once, as well as .remove() classes that are already removed or add() classes that are already added without duplication
+
+    Variables are only accessible in the scope that they are declared - variables in function cannot be accessed outside the function

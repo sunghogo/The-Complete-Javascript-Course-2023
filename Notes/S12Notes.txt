@@ -1,0 +1,249 @@
+L168 Section Intro
+
+
+L169 Section Roadmap
+
+
+L170 Converting and Checking Numbers
+    In JS, all Numbers (primitives) are representeed internally as floating point numbers, 64 base 2 format
+
+    Since everything is representing in binary base 2, it is difficult to represent certain fractions even with JS roundings behind the scenes
+
+    Cannot do really precise scientific or financial calculations in JS, so do NOT compare floating points normally
+
+    Number() and '+"number"' is the shorthand way to type coerce strings to numbers (similar to concatenate an empty string to a number for quick string type coercion)
+
+    Number.parseInt('string', 'regex') is a function to parse a string into a number:
+    Number.parseFloat('string', 'regex') is a function to pase a string into a floating point number:
+        Number has to be at the START of the string otherwise it fails (parseFloat() additionally parse number after '.')
+
+        Failed parsing returns NaN
+
+        'regex' value specifies base numeral system (ex. 10), and defaults to base 10 when not specified
+        
+        Useful for extract CSS values from units
+
+    The Number functions are also global functions that can be called without 'Number.', but it is now encouraged in modern JS to call the functions with 'Number.' since it provides a (Number) namespace for these functions
+
+    Number.isNaN('input') is a Number namespace function that checks if the input is NaN
+
+    Number.isFinite('input') is a Number namespace function that checks if the input is a number AND finite
+
+    Number.isInteger('input') is a Numeber namespace function that checks if the input is an integer:
+        An floating point with '.0' is also an integer
+        
+    Converting an invalid string to a number returns NaN 
+
+    Dividing a number by 0 returns 'Infinity', which is still a number 
+
+
+L171 Math and Rounding
+    Math namespace functions does type coercion BUT NOT parsing
+
+    Math.sqrt('number') is Math namespace function that calculates squareroot:
+        equivalent to ** (1/2)
+
+    Math.max('array') is a Math namepsace function that returns the maximum number from that array:
+
+    Math.min('array') is a Math namepsace function that returns the minimum number from that array:
+        Returns NaN or Infinity if it exists
+
+    Math.PI is a Math namespace constant representing pi
+
+    Math.random() is a Math namespace function that returns a number between [0,1)
+
+    Math.trunc() is a Math namespace function that truncates the decimal portion of floating points
+
+    Math.round() is a Math namespace function that rounds to the nearest integer
+
+    Math.ceil() is a Math namespace function that rounds up
+
+    Math.floor() is a Math namespace function that rounds down (works better than .trunc() for negative numbers)
+
+    'number'.toFixed('decimal place') is a Number method that returns a STRING of the number rounded to the specified decimal place:
+        Remember primitive types do not have methods so JS will use boxing to convert this to a Number Obj in the background to call the method
+
+
+L172 The Remainder Operator
+    '%' is the remainder / "modulo" operator that gives the remainder after dividing the lefthand with the righthand number:
+        Common usecase is to determine if a number is even if the remainder is 0 ('number' % 2 === 0)
+
+
+L173 Numeric Separators
+    Numeric Separators (ES2021/ES12) format numbers so they are more readable:
+        Use '_' between number digits to separate them visually (similar to ',')
+
+        Cannot place them at the start AND end of numbers OR period, and can't place multiple in a row
+
+        Does not affect the value of the number so can type convert into strings
+
+        ex.) 1_000_000 similar to 1,000,000
+
+    '_' does not register as a numeric separator when type convert/coerce strings into numbers (will be treated as a string character) so be careful
+
+
+L174 Working with BigInt
+    Remember Numbers primitives are represented internally as 64 bits, but only 53 bits are used to store the actual digits while 11 bits are used for storing the position of the decimal point and sizing:
+        Number.MAX_SAFE_INTGER === (2 ^ 53) - 1 is the largest number possible (9_007_199_254_740_991)
+
+        Past this number, JS cannot accurately represent unsafe number and loses preicion
+
+        This happens with really large database IDs or 60 bit numbers used in other programming languages
+
+    BigInt primitive type (ES2020/ES11) allows JS to represent really large numbers:
+        Two ways:
+            'big integer''n'
+
+            BigInt('big integer')
+                The 'big integer' is still processed before being used to construct BigInt so pass it as a STRING to prevent this
+
+    You can use BigInt with the other operators normally EXCEPT:
+        1. You CANNOT perform mathematical operations between BigInt and other Numbers, or Math namespace function
+
+        2. Comparison or equality operators are ALLOWED since BigInt will be type coerced to Number
+
+        3. String concatenation is ALLOWED since BigInt will be type coerced to String
+
+        4. Division between BigInts will always give a TRUNCATED BigInt value
+
+
+L175 Creating Dates
+    new Date() constructor function is used to create Date objects:
+        String formats:
+            "'Day of Week' 'Month' 'Day' 'Year' 'Time' 'Timezone' 'DST'"
+
+            "'Date'-'Month'-'Day'T'Hour':'Min':'Second'.'Millisecond''Time Zone Symbol'"
+        
+        1. new Date ():
+            By default, no arguments gets the current date
+
+        2. new Date ('date and time string'):
+            A properly formatted string returns that date and time 
+            
+            Although JS can parse incomplete / misordered strings, it is unreliable and not recommended
+
+        3. new Date('year', 'month', 'day', 'hour', 'second', 'milliseconds')
+            The 'month' starts from 0 so, 0 is Jan, 1 is Feb, etc...
+
+        4. new Date(0):
+            Gives the Unix Epoch which is when time starts for Unix systems (Thu Jan 1 1970 0:00:00 GMT+0000(UTC)
+
+        5. new Date('day' * 24 * 60 * 60 * 1000):
+            Multiplying the 'day' * 24h/day * 60m/h * 60s/m * 1000ms/s gives us the number called the "timestamp"
+
+    Date methods:
+    Change "get" to "set" to set the number instead
+        .getFullYear() gets the full number year
+
+        .getYear() gets the number year since 1900
+
+        .getMonth() gets the number month (STARTING from 0 to 11)
+
+        .getDate() gets the number day
+
+        .getDay() gets the number day of the week (0: Sunday, ..., 6: Saturday)
+
+        .getHours() gets the number hour
+
+        .getMinutes() gets the number minutes
+
+        .getSeconds() gets the number seconds
+
+        .getTime() gets the number timestamp for that date
+        
+        .now() gets the number timestamp for the current time and date
+
+        .toISOString() converts to the date to international standard formatted string (ex. 2037-11-19T20:23:00.000Z)
+
+
+L176 Adding Dates to "Bankist" App
+    To add '0' for single digit date and time values for formatting, use .padStart('pad length', 'pad char')
+
+
+L177 Operations With Dates
+    You can perform mathematical calculation using Date objects:
+        +'Date object' to quickly to type coerce it into its numerical timestamp value
+
+    If you need precise calculations such as time changes due to DST, use dot.js library that's free for JS developers
+
+
+L178 Internationalizing Dates (Intl)
+    JS has a new Internationalization API (ES6/ES2015) to easily format numbers and strings according to different languages (ex. dates, numbers, currency) using the Intl Object:
+        Not all Intl namespace features were introduced at once so have to check
+
+    new Intl.DateTimeFormat('locale string', 'options') constructor to create a time and date formatter for the specified langauge:
+        'locale string' specifies the "'language'-'country'" format:
+            ex.) 'en-US', 'en-GB', 'ar-SY'
+
+            http://www.lingoes.net/en/translator/langcode.htm
+
+            Normally get the 'locale string' from the browser using:
+                navigator.language
+
+        'options' is an object that specifies which date and time to display using the following properties:
+            const 'options' = {
+                hour: 'format',
+                minute: 'format',
+                day: 'format',
+                month: 'format',
+                year: 'format',
+                weekday: 'format'
+            }
+
+            Certain values are limited to certain properties, and can be:
+                1. 'numeric' - displays numeric value
+                2. '2-digit' - displays numeric value as 2 digits
+                3. 'long' - displays word value
+                4. 'short' - displays the shorthand (3 char) word value
+                5. 'narrow' - displays the symbolic (1 char) word value
+
+            No options object defaults to only the date in 'numeric'
+
+        Call the .format('Date Object') method on the formatter to format the date object
+
+
+L179 Internationalizing Numbers (Intl)
+    new Intl.NumberFormat('locale', 'options').format('number') constructor to create a numeric formatter for the specified langauge:
+        'locale string' is the same format as above, and use navigator.language to get the locale from the browser
+
+        'options' is an object that specifies which date and time to display using the following properties:
+            const 'options' = {
+                style: 'format',
+                unit: 'format',
+                currency: 'format',
+                'useGrouping': 'format'
+            }
+
+            Certain values are limited to certain properties, and can be:
+                "style" values:
+                    1. 'unit' - specifies according to the "unit" property
+                    2. 'percent' - percentage and ignores "unit"
+                    3. 'currency' - specifies according the "currency" property and ignores "unit"
+                "unit" values:
+                    1. 'mile-per-hour'
+                    2. 'celcius'
+                "currency" values":
+                    1. 'EUR' - euro
+                    2.  'USD' - US dollar
+                "useGrouping" values:
+                    1. true - numeric separators used (default)
+                    2. false - numeric separators not used
+
+        Currency cannot be implied from the locale and has to be set manually
+
+
+L180 Timers: setTimeout and setInterval
+    setTimeout('callback function', 'time in ms', ...'parameters to be passed to the callback function') calls the callback function ONCE after the specified time has elapsed
+
+    setInterval('callback function', 'time in ms', ...'parameters to be passed to the callback function') calls the callback function CONTINUOUSLY after the specified time has elapsed
+
+    setTimeout() and setInterval() does NOT stop the code execution:
+        JS registers the callback function to be called after the time has elapsed, and moves onto the next line of code it is time to execute the callback
+
+        This is called Asynchronous JS
+
+    clearTimeout('timeout function') can be used to stop/delete a timer (after assigning the timer to a variable for referencing)
+
+
+L181 Implementing a Countdown Timer
+    clearInterval('interval function') can be used to stop/delete a interval timer (after assigning the timer to a variable for referencing)

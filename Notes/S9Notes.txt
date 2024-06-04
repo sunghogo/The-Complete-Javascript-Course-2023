@@ -1,0 +1,502 @@
+L101 Section Intro
+    Will cover:
+        1. Built-in data structures like objects, maps, and arrays
+        2. Modern ES6+ operators like destructuring nad optional chaining
+        3. How to work with strings
+
+L102 Section Roadmap
+
+
+L103 Destructuring Arrays
+    Destructuring (ES6) - Way of unpacking of values in an array or object into separate variables. (Break a complex data structure down into a simpler data structure like a variable)
+
+    In VS Code, you can duplicate selection
+    
+    Simple way to destructure an array:
+        const ['var 1', var 2', etc...] = 'array name'
+
+        Destructuring assignment assigns leftmost variables starting from index 0
+
+        Can also skip an index with an empty space like this:
+            const ['var 1', ,'var 2'] = 'array name'
+
+    Destructuring also allows us to easily switch variable values:
+        ['var 1', 'var 2'] = ['var 2', 'var 1']
+
+    You can destructure arrays returned from functions
+
+    You can also destructure nested arrays used nested destructuring:
+            const ['var 1', [var 2', 'var 3'], etc...] = 'array name'
+
+    We can set default values for the variables when we are destructuring/extracting them:
+        const ['var 1' = 'default value 1', 'var 2' = 'default value 2', etc...] = 'array name'
+
+        
+        Useful for when we do not know the length of the array
+
+    Destructuring an array for a non existant index returns an undefined
+
+
+L104 Destructuring Objects
+    Similar to destructuring arrays, except key differences:
+        const {'property 1', property 2', etc...} = 'object name'
+
+        Objects are unordered so do not need to skip, however need to specify the exact property name as the variable name
+
+        Extremely useful for dealing with API call results
+
+    Can specify variable names in destructuring objects:
+        const {'property 1': 'variable 1', property 2': 'variable 2', etc...} = 'object name'
+
+    Cam also specify default values in destructuring objects:
+        const {'property 1' = 'default value 1', property 2' = 'default value 2', etc...} = 'object name'
+
+    Mutating variables with object destructuring:
+        We can't just do:
+            {'property 1', 'property 2'} = 'object name'
+        since JS expects this to be a code block, and we cannot assign to a code block as it will create a SyntaxError
+
+        To propertly reassign variables using destructuring objects, need to wrap the entire statement in parentheses:
+            ({'property 1', 'property 2'} = 'object name')
+
+    Nested Objects:
+        Similarly, we can specify and destructure nested objects:
+            const {'nested object name' : {'property name 1', 'property name 2', etc...}} = 'object name'
+
+    You can define objects as parameters for a function:
+        This is useful for functions with many multiple parameters as you don't have to keep track of the parameter order, and destructure the object right away in the function parameters
+
+        'object name' = {'property 1', 'property 2', etc..}
+        'function name' = function ({'property 1', 'property 2', etc..}) {
+            "function body"
+        }
+        'function name' ({'property 1', 'property 2', etc..});
+
+
+L105 The Spread Operator (...)
+    We can use the spread operator to expand an array into all its elements, unpacking all the array elements at once
+
+    Spread Operator (ES6) - Takes all the values out of an array, and writes the values individually in sequence
+        ...'array name'
+
+        Spread operator creates expressions with the array values and commas in between, which does not create new variables by itself, and is used specifically within arrays:
+        ...'array name' === `val1, val2, ... , etc`
+    
+    We create new arrays using Array Literal Syntax to declare and copy an array with a spread operator
+
+    Two use cases for the Spread Operator are:
+        1. Create shallow copies of arrays (similar to object.assign)
+        2. Merge two arrays together
+
+    The spread operators works on all iterables, which are data structures like arrays, strings, maps, or sets BUT NOT objects (unless ES2018+/ES9+)
+
+    You cannot use the spread operator in template literals because this is not a place where it expects multiple values separated by a comma; this is only expected when passing arguments to a function or building a new array
+
+    use '\' to escape characters from string for example
+
+    In (ES2018+), spread objects DO WORK on objects even though they are not iterables, and can be used to pass object property:value pairs to create new object copys:
+        const 'new object name' === { 'new property': 'value', ...'object name', etc.. }
+
+
+L106 Rest Pattern and Parameters
+    Rest Patterns use same syntax as spread operators but does the opposite by collecting multiple elements, and condensing them into an array 
+
+    Rest Patterns (ES6) - Takes the rest of the elements, and puts them into an array:
+        const ['var 1', 'var 2', ...'var 3'] = 'array name'
+
+        Rest element must be the very last element / There can only be one est element in a destructuring assignment
+
+        Does not include any skipped elements in the destructuring
+
+    Also works in objects (ES2018+/ES9+):
+        const {'property 1', 'property 2', ...'rest variable name'} = 'object name'
+
+    We can also use the rest parameters to implement the opposite of spread operator to pass any number of arguments (which is then packed into an array) as a function parameter:
+        const 'function name' = function (...'rest parameter name') { "function body" }
+
+        This is useful so that a function can take both an array (using a spread operator) and all single values extract from a spread operator simultaneously
+
+        Also feels more natural, and used frequently
+
+        If there are no rest arguments, the rest parameter returns an empty array
+
+    So the spread operator is used where we would write values (or object property:value pairs) separated by a comma, and the rest pattern is used where we would write variable names separated by commas
+
+
+107 Short Circuiting (&& and ||)
+    Logical Operators are limited to boolean types, so they can:
+        1. Use ANY data type
+        2. Return ANY data type
+        3. Short-circuit Evaluation / Short-circuiting
+
+    Short-circuiting (implemented before ES6) - It will evaluate for the first expression, and short-circuit the rest of the evaluation:
+        ||: It will evaluate the expression until the first truthy value, then return that value. If all the values are falsy, then it will return the last value even if the last value is falsy as well
+
+        &&: It will evaluate the expresion until the first falsy value, then return that value. If all value are true, then it will return the last value even if the last value is truthy as well
+
+        Useful for replacing ternary operators (for longer evaluations) and if / else statements:
+            Useful to use || to set default values and && to execute code in the second operand if the first operand is true        
+
+
+L108 The Nullish Coalescing Operator (??)
+    Nullish Coalescing Operator (ES2020+/ES11+):
+        ??: Similar to || but it instead works with concept of nullish values ('null' abd 'undefined'). It will evaluate the expression for the first non-nullish value, and short-circuit/return it. Otherwise, it will return the last value even if it is nullish.
+
+        Basically, it is || if 0 and '' were treated as truthy values
+
+
+109 Logical Assignment Operators
+    Logical Assignment Operators (ES2021/ES12):
+        Logical OR Assignment Operator -
+            ||=: Assigns the value in the second operand to the first operand if the value in the first operand is falsy
+
+        Logical Nullish Assignment Operator =
+            ??=: Assigns the value in the second operand to the first operand if the value in the first operand is a nullish value
+
+        Logical AND Assignmer Operator -
+            &&=: Assigns the value in the second operand to the first operand if the value in the first operand is a truthy value
+
+        Useful for shorthand way of assigining variable using logical operators
+
+        Assigning properties that did not exist as 'undefined' does not change the object, and the property will not show up/remain undefined
+
+
+L110 Coding Challenge #1
+
+
+L111 Looping Arrays: The for-of Loop
+    for-of loop (ES6+) - it will automatically loop over the entire array, and give us access to the current element at each iteration:
+        for (const 'iteration variable' of 'array') { "loop body"}
+
+    for-of loops are still able to use continue and break
+
+    Do not need code blocks for conditional and loop statements if there is only one line to execute
+
+    .entries() array method returns an Array Iterator, which is an array with elements that are also arrays that contain ['index number', 'element at that index']
+
+ You can use for-of loop on an 'array'.entries() to also be able to access its index numbers
+
+
+L112 Enhanced Object Literals
+    ES6 introduced three ways to make writing Object Literal Syntax easier:
+        1. If you are storing outside variables as same name properties, you can just declare the property name without the value assignment:
+            const obj = "..."/{"..."}
+            const obj2 = {
+                obj,
+            }
+        2. You can assign functions as a property without the function keyword and value assignment (aka without a function expression):
+            const obj = {
+                'function name'('parameter') {
+                    "functon body"
+                },
+            }
+        3. You can compute property names (use expressions) instead of writing them out literally:
+            const obj = {
+                ("expression"): 'value'
+            }
+
+    Before you could only use expressions when assigning property values, but now you can do it for property names as well (as long as it outputs a single string)
+
+
+L113 Optional Chaining (?.)
+    For deeply nested objects, if we were to check for whether every object property exists, it would easily get out of hand and easier to create bugs
+    
+    Optional Chaining (ES2020+/ES11+) - If a certain property or element does not exist (aka nullish property of being 'undefined'/'null'), then undefined is returned immediately:
+        'object name'.'property'.'property 2'?.'property 3'
+
+        'object name'.'method'?.('parameters')
+        ?? "Method does not exist"
+
+        It can also be used to access objects inside of arrays:
+            'array name'['index']?.'property name' ?? 'User array empty'
+
+        The '?' chaining operator checks if that property exists, and if it doesn't, short-circuits and returns undefined
+
+        It can be used for object methods as well, and should be paried with the null coalescing operator to return default values if it does not exist
+
+    Remember if we want to use a variable as the property name, we must use the bracket notation as it makes a distinction between variables and string literals:
+        'object name'['variable for property name']
+
+    Useful for Web APIs
+
+
+L114 Looping Objects: Object Keys, Values, and Entries
+    Object property names are also called keys
+
+    Object.keys('object name') returns an array with the keys of an object
+
+    Object.values('object name') returns an array with the values of an object
+
+    Objects.entries('object name') returns an array containing elements that are also arrays with both the key and value pairs of an object
+
+    These are not methods called directly on the object, but protoype functions
+
+    You can for-of loop through the entries using the .entries() method since objects are NOT iterables, and destructure the loop variables to access the key and value information
+
+    No way in-built function to get the size of an object, but can call .length on the arrays returned from the above methods
+
+L115 Coding Challenge #2
+
+
+L116 Sets
+    Objects and arrays were originally the only in-built data structures
+
+    Sets and Maps introduced in (ES6/ES2015)
+
+    Sets are collections with unique values that cannot have any duplicates:
+        const 'variable name' = new Set(['value 1', 'value 2', etc...])
+
+        Sets are also iterables that look similar to Arrays
+
+        Duplicate values in sets will automatically be erased
+
+        Ordering of elements in Sets are irrelevant
+
+    Strings are also iterables that can be declated as a set using the new Set() keyword
+
+    .size method is used to get the length of a set (NOT .length for arrays)
+
+    .has() method is used to see whether a set contains a value (similar to the .include() method for arrays)
+
+    .add() and .delete() methods are used to add/delete values to/from a set
+
+    No way/need to retrieve a value from a set since values are unique and their order does not matter, only need to see if the set has a value
+
+    .clear() method to completely empty out a set
+
+    You can still access values in a set by iterating through it with the for-of loop
+
+    Sets are practically used to removed duplicate values from an array:
+        const 'new array' = [...new Set('old array')]
+
+        The spread operator is used on the intermediate set to extract the values for the new Array literal
+
+    Whenever you need to store values, and manipulate them, use arrays. But sets are important to know and utilize with arrays due to their unique values.
+
+
+L117 Maps: Fundamentals
+    Maps are data structures to map values to keys, just like in keys.
+
+    The main difference between maps and objects is that in maps, the properties/keys can be any type while in objects, they are always strings
+
+    Use the constructor to create maps:
+        const 'variable name' = new Map()
+
+    .set('key', 'value') method is used to add new key-value pairs, and then returns the updated map:
+        You can chain the .set() method like this:
+            'map name'.set().set().set()
+
+    .get('key') method is used to retrieve the value associated with the key, and returns 'undefined' if the key doesn't exist (data types MATTER)
+
+    .delete('key') method is used to remove a key-value pair from the map, and returns true if it deleted and false if not
+
+    .has('key') method is used to see if a map contains the key-value pair, and returns the boolean
+    
+    .clear() method is used to empty out the map
+
+    .size method is used to get the size/length of the map
+
+    You can use booleans as map keys to evaluate as expressions using comparison and logical operators
+
+    Map methods for insertion, deletion, retrieval, has, and clearing are much more efficient than Objects (all O(1))
+
+    When comparing objects, they are usually not the same object in heap even if what they contain are the same; need to specify the object using a variable
+
+    DOM elements are nothing more than special type of objects, and you can use maps to do some advanced interactions
+    
+    You can use expressions to set keys and values
+
+
+L118 Maps: Iteration
+    New maps can be declared with a 2D array containing initial key-value pairs:
+        const 'map name' = new Map(
+            [
+                ['key 1', 'value 1'],
+                ['key 2', 'value 2'],
+                etc,,
+            ]
+        )
+
+    This format is very similar to Object.entries(), so you can transform an object into map like this:
+        const 'map name' = new Map(Object.entries('object name'))
+
+    You can also convert a map into an object using the Object.fromEntries() function that takes in object entries similar in format to maps:
+        const 'object name' = Object.fromEntries('map name')
+
+    Objects ARE NOT iterables, but can be converted into one using Object.entries()
+
+    Maps are iterables, and can be directly iterated through using a for-of loop
+
+    You can convert a map to an array using the spread operator since maps are iterables that are practically 2D arrays:
+        const 'array name' = [...'map name']
+
+    Similar to array methods, you can also use the following methods and then convert them into an array:
+        .entries() - Returns a Map Iterator of all the key-value pairs:
+            const 'array name' = [...question.entries()] which is the same as the process above
+
+        .keys() - Return a Map Iterator of all the keys:
+            const 'array name' = [...question.keys()]
+
+        .values() Returns a Map Iterator of all the vlaues:
+            const 'array name' = [...question.values()]
+
+
+L119 Summary: Which Data Structure to Use?
+    Sources of Data:
+        1. From the program itself: Data written directly in the source code(e.g. status messages)
+        2. From the UI: Data input from the user or data written in DOM (e.g tasks in todo app)
+        3. From external sources: Data fetched for example from web API (Application Programing Interface) (e.g recipe objects)
+
+    Collections of data are then stored and organized in data structures:
+        1. Simple List? - Arrays or Sets
+        2. Key/Value Pairs? - Objects or Maps
+
+        Keys allow us to describe values
+
+        Data from Web APIs is usually in a special data format called JSON, which is just text but can easily converted into JS objects because it uses the same formatting
+
+        In JSON, data is often nested within arrays and objects according to the needs
+
+    Other Built-In Data Structures: 
+        1.WeakMap
+        2. WeakSet
+
+    Not Built-In:
+        1. Stacks
+        2. Queues
+        3. Linked Lists
+        4. Trees
+        5. Hash Tables
+
+    Arrays vs Sets:
+        Arrays: 
+            Use when you need ORDERED list of values (might contain duplicates)
+            
+            Use when you need to manpulate data
+
+        Sets:
+            Use when you need to work with UNIQUE values
+
+            Use when high-performance is really important (searching for an element, deleting an element is high efficient on sets compared to arrays)
+
+            Used to removed duplicate values from an arrays
+
+    Objects vs Maps:
+        Objects:
+            More "traditional" key/value store (Since maps were implemented in ES6, and developers "abused" objects using it as key/value stores despite technical difficulties)
+        
+            Easier to write and access values with . and [] operators/notations
+
+            Use when you need to include FUNCTIONS (methods) as you can directly call methods from the object
+            
+            Similarly, working with this keyword to access same properties in an object (accessing this is impossible in maps)
+
+            Use when working with JSON (can convert to map)
+
+        Maps:
+            Better performance
+
+            Keys can have ANY data type
+
+            Easy to iterate
+
+            Easy to compute size
+
+            Use when you simply need to map keys to values
+            
+            Use when you need keys that are NOT strings
+
+
+L120 Coding Challenge #3
+
+
+L121 Working With Strings - Part 1
+    You can access characters in strings using the bracket notation just like in arrays
+
+    String methods are similar to array methods:
+        .length method returns the length of the string
+
+        .indexOf("string") method returns the index of the first occurence, otherwise -1 (CASE SENSITIVE)
+
+       .lastIndexOf("string") method returns the index of the last occurence, otherwise -1 (CASE SENSITIVE)
+
+       .slice('starting index', 'end index') method extracts the substring in that index range:
+            Extracted strings are called "Substrings"
+
+            This does NOT change the underlying string
+
+            The end index is NOT included, and the length of the substring will always be the 'end index' - 'start index'
+
+            The end index argument does not need to be passed, and will extract from the start index to the end of the string
+
+            A negative number as the start index will extract backwards starting from the end of the string for that number of characters
+
+            A negative number as the end index will extract until the end of the string EXCLUDING that number of characters
+
+    Strings are IMMUTABLE since they are a primitive type; This means all the strings methods do NOT change the underlying string
+
+    .indexOf() and .lastIndexOf() are useful for determing indexes for the .slice() method of string extraction
+
+    Why do Strings have methods even though it is a primitive?
+        Boxing - When a method is called on a string, JS will automatically convert the string primitive to a temporary string object, which is our "box", and then call that method on the box
+
+        Constructing a string will return an object similar to our box:
+            const 'string name' = new String("string")
+
+        String methods will automatically convert boxes and return a string primitive
+
+
+L122 Working With Strings - Part 2
+    .toLowerCase() method returns a string into all lower case letters
+
+    .toUpperCase() method returns a string into all upper case letters
+
+    .trim() methods removes all white spacing (but NOT new lines '\n')
+
+    .trimStart() method removes all white spacing from the start of string
+
+    .trimEnd() method removes all white spacing from end of string
+
+    .replace("replaced substring", "replacement substring") method replaces the first instance of a substring with another subtstring (CASE SENSITIVE)
+
+    .replaceAll("replaced substring", "replacement substring") (ES2021/ES12) method replaces all instances of a substring with another subtstring (CASE SENSITIVE)
+
+    .includes("substring") method returns a boolean depending on whether the substring exists in the string (CASE SENSITIVE)
+
+    .startsWith("substring") method returns a boolean depending on whether the string starts with the substring (CASE SENSITIVE)
+
+    .endsWith("substring") method returns a boolean depending on whether the string ends with the substring (CASE SENSITIVE)
+
+    You can use these methods with string concatenation to create standard/proper strings
+
+    You can also chain string methods since they all return strings
+
+    In Europe, commas are used instead of periods for decimal separators
+
+    It is good practice to call .toLowerCase() on all strings before comparing or calling string methods as many string methods are case sensitive
+
+    Regular expressions can be used to specify strings:
+        /"string"/g - specifies all instances of the strong globally
+
+L123 Working With Strings - Part 3
+    .splt('split substring') method returns an array with all substrings created after splitting the string by the split substring, otherwise returns an array with the entire string (CASE SENSITIVE)
+
+    'substring array'.join('join substring') method on an array of substrings returns a string joining the substrings with the join substring in between (CASE SENSITIVE)
+
+    .padStart('length of new string', 'padding subtring') method returns a string that is padded at the start to the specified length with the padding substring (No padding substring defaults to whitespace)
+
+    .padEnd('length of new string', 'padding subtring') method returns a string that is padded at the end to the specified length with the padding substring (No padding substring defaults to whitespace)
+
+    .repeat('number of repeats') method returns a new string that is repeated by the number of repeats
+
+    Very useful to use destructuring with .split() to create variables with the split substrings
+
+    Padding - Adding a certain number of characters to a string until the string reaches a desired length
+
+    You can concatenate an empty string to a number to quickly type coercion to a string instead of using String()
+
+
+L124 Coding Challenge #4
+
+
+L125 String Methods Practice

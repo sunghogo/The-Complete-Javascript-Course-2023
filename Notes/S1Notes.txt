@@ -1,0 +1,7 @@
+VSCode:
+    Monokai Pro Theme
+
+    Settings:
+        AutoSave - OnFocusChange
+        Multi Cursor Modifier - ctrlCMD
+        Format On Save - Check

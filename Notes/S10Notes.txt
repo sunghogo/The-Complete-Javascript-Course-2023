@@ -1,0 +1,198 @@
+L126 Section Intro
+
+
+L127 Section Roadmap
+
+
+L128 Default Parameters
+    Before ES6, would have to specify default values for function parameters separately using the undefined falsy values and logical assignment using ||
+
+    Default Parameters (ES6) - You can now set default values for paramters in the function declaration:
+        function 'function name' ('paramter 1' =  'default value', etc..) { "function body" }
+
+        The default paramters can be expressions, but the order of parameter declaration matters (when the parameters access each other)
+
+        You cannot skip arguments, but what you can do is set them to udnefined, which is practically the same
+
+
+L129 How Passing Arguments Works: Value vs. Reference
+    Generally speaking, it is not good practice to change the argument value
+
+    When we pass a primitive type as an argument to a function, it creates a copy of that original value and not the actual original value in the stack
+
+    When we pass a reference type as an argument to a function, the copy is just the reference to the object in heap memory, so both the original value and argument reference and manipulate the same object
+
+    In large codebases, this behavior by objects can have consequences and introduce bugs
+
+    Scientific notation can be implmeented like this:
+        1 * 10 ** 6 === 1 * e+6
+
+    Two terms for passing arguments in JS:
+        1. Passing by reference - You can pass a reference to any value instead a value itself (ex. pointers in C++)
+
+        2. Passing by value - You pass the value itself and not the reference (even in JS, we pass a value that is a memory address of an object, and not a reference itself)
+
+        JS does NOT have passing by reference, only passing by value
+
+
+L130 First-Class and Higher-Order Functions
+    First-Class Functions:
+        JS treats functions as first-class citizens
+
+        This means that functions are simply values
+
+        Functions are just another "type" of object
+    
+    Since JS treats functions are first-class, they have interesting properties:
+         1. Store functions in variables or object properties
+         2. Pass functions as arguments to OTHER functions (ex. .addEventListener())
+         3. Return functions FROM functions
+         4. Call methods on functions (ex. .bind())
+
+    Higher-Order Functions:
+        A function that RECEIVES another function as an argument, that RETURNS a new function, or BOTH
+
+        This is only possible because of first-class functions
+
+        Types:
+            1. Function (Higher-order function) that receives another function (Callback function) (ex. addEventListener())
+
+            2. Functions (Higher-order functions) that returns new function (Returned functions)
+
+    First-class functions is just a feature that a programming language has or doesn't have, a concept that all functions are values and not the practical application
+
+    Higher-order functions are in practice possible due to first-class function support
+
+    Callback funciions are named that way because we do not call themselves, but call JS to tell them later
+
+
+L131 Functions Accepting Callback Functions
+    When we're passing in callback functions as arguments, we are passing in the function WITHOUT calling it (without the ())
+
+    .name is a function property that gives the function name
+
+    .forEach('callback function name') is a array method, where you can pass in a callback function that executes for each element in the array
+
+    Callback functions allows us to:
+        1. Split our code into more reusable and interconnected parts
+        2. They allow us to create abstractions (hide the details of code implementation, and allows us think about problems at a higher abstraction level)
+
+
+L132 Functions Returning Functions
+    Higher-order functions are able to pass down its arguments to lower-order functions due to "closure":
+        'higher-order function name'('paramter')('returned function paramter')
+
+    Functions returning other functions is extremely useful for functional programming paradigm
+
+    For declaring higher-order functions, you can used nested arrow functions:
+        const 'higher-order function name' = ('paramter') => ('nested parameter') => { "function body" }
+
+        Remember, arrow functions has no 'this' and 'arguments' keyword
+
+
+L133 The call and apply Methods
+    Remember you can use borrow methods from objects, and copy/assign it to a variable:
+        Calling a function using the new variable makes it a regular funciton call with an undefined 'this' keyword in strict mode
+
+    There are three function methods to specify the 'this' keyword:
+        1. .call('this keyword value', 'argument 1', 'argument 2', etc...)
+            Returns the function call with the 'keyword' set to specifed value
+
+        2. .apply('this keyword value', ['argument 1', 'argument 2', etc...])
+            Returns the function call with the 'keyword' set to specifed value
+
+        3. .bind()
+
+    .apply() is not used that much anymore because you can use .call() with the spread operator on the array to specify the arguments
+
+
+L134 The bind Method
+    The .bind() method returns a new function where the 'this' keyword is bound:
+        const 'bind function name' = 'original funciton name'.bind('this keyword value', 'argument 1', 'argument 2', etc..)
+
+        'bind function name'('argument 1', 'argument 2', etc...)
+
+    Partial Application - Parts of arguments of the original functions are already applied:
+        We can specify the arguments in the .bind() method to set the arguments beforehand
+
+        When we are partially applying arguments using .bind() method without changing 'this' keyword, best practice to set the 'this' argument to 'null'
+
+    The .bind() method is useful with Event Listeners:
+        In an event handling function, the 'this' keyword always points to the element that the handler is attached to
+
+        Since the event handler requires a callback function, we have to use the .bind() function instead of the .call() method
+
+    This is different from setting default paramters to a function, since we are creating a new specific function from a more general function using .bind()
+
+
+L135 Coding Challenge #1
+    .fill('value') method fills the array with the specified value
+
+    Remember, you can pass objects in as function parameters, this is useful for setting 'this' keyword and properties for method borrowing
+
+    .join('join substring') string method takes in an array, and is useful for printing out the array as a formatting string using ' ', ', ', or '\n' as the join substirng
+
+    Logical operators and short-circuiting can be used for complex conditional statements once you get familiar with it
+
+
+L136 Immediately Invoked Function Expressions (IIFE)
+    Immediately Invoked Function Expressions (IIFE) (Pre-ES6) - A function that is executed once and disappears after
+        (function () {
+            "function body"
+        })()
+
+        (() => "function line")();
+
+        Wrapping the anonymous function declaration in parentheses turns it into an (acceptable) function expression, and then '()' after it calls the function
+
+    Need this for something called Async/Await
+
+    This is useful because functions create scopes so that inner scope variables are not inaccessible:
+        All data defined inside a scope is "private", and that this data is "encapsulated"
+
+    This scoping protects data and variables from being accessed and modified from outside functions and modules
+
+    IIFE is less of a feature, and more of a pattern that JS developers came up with
+
+    Since ES6 introduced let and const variable declaration and scoping (inside blocks), IIFE is no longer really used for data encapsulation
+
+
+L137 Closures
+    Closures are not a feature that we explicity use by creating them manually; Closures happens automatically under certain situations
+
+    Any function always has access to the variable environment in which the function was created, even AFTER that execution context is gone
+
+    Closure - The VE attached to the function, exactly as it was at the time and place the function was created
+
+    When can say a function "closed" over its parents scope / parent VE, and is able to carry it around and use it forever
+
+    Closures have PRIORITY over the scope chain
+
+    Closure (formal def) - A closure is the closed-over VARIABLE ENVIRONMENT of the execution context IN WHICH A FUNCTION WAS CREATED, even AFTER that execution context is gone 
+
+    Closure (less formal) - A closure gives a function access to all the variable environment OF ITS PARENT FUNCTION, even AFTER that parent function has returned. The function keeps a REFERENCE to its outer scope, which PRESERVES the scope chain throughout time.
+
+    Closure (least formal) - A closure makes sure that a function doesn't lose connection to VARIBALES THAT EXISTED AT THE FUNCTION'S BIRTH PLACe
+
+    A closure is like a BACKPACK that a function carries around wherever it goes. This backpack has all the VARIABLES THAT WERE PRESENT IN THE ENVIRONMENT WHERE THE FUNCTION WAS CREATED.
+
+    We do NOT have to manually create closures, this is a JS feature that happens automatically. We can't even access closed-over variables explicity. A closure is NOT a tangible JS object that we can access.
+
+    We can however see the closure through console.dir('variable'), and then access the [[Scopes]]:
+        Anything in '[[]]' means that it is an internal property that cannot be accessed from code
+
+
+L138 More Closure Examples
+    Even if the variable is defined in the global/parent scope, it is still able to close over the VE of a child scope even after it has finished execution
+
+    There can only be one closure at a time, so reassigning a variable will replace the old closure with the new closure
+
+    setTimeout('function to be executed', 'timer in ms'):
+        This is a callback function that executes only the function only once after the specifed time has passed
+
+    Callback functions executes independently in its scope, but is still able to access closed variables due to closure
+
+    Closure has priority over the scope chain
+
+
+L139 Coding Challenge #2

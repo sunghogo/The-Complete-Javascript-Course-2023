@@ -1,0 +1,323 @@
+L140 Section Intro
+
+
+L141 Section Roadmap
+
+
+L142 Simple Array Methods
+    Methods are simply functions we can call on objects / that are attached to objects
+
+    .slice('start index', 'end index') array method extracts and returns a new ARRAY containing that slice WITHOUT mutating the original array:
+        The end parameter does not have to be specified
+
+        The end paramter is NOT included 
+
+        A negative number as the start extracts that number of elements starting from the end
+
+        A negative number as the end parameter extracts from the start index to the end excluding the specified number of elements
+
+        Can also not pass any parameters to create a shallow copy of the array
+
+    .splice('start index', 'delete count') array method extracts and returns a new ARRAY containing that slice while MUTATING the original array:
+        The original array will contain the leftovers
+
+        Most used case is to .splice(-1) to get rid of the last element
+
+    .reverse() array method reverses and MUTATES the original array
+
+    .concat('array 2') method concatenates two arrays into a single array WITHOUT mutating the original arrays
+
+    .join('separator substring') returns a string that contains the contents of the array that has its commas replaced by the separator substring
+        No argument defaults to commas without whitespace (',')
+
+    From  from previous sections:
+        .push(), 
+        .pop(), 
+        .unshift(), 
+        .shift(), 
+        .indexOf(), 
+        .includes()
+
+
+L143 The new at Method
+    .at('index paramter') (ES2022) string/array method lets us access array elements as an alternative to bracket notation:
+        If the index paramter is a negative parameter, it starts accessing from the end of the array
+
+        Also useful for method chaining
+
+
+L144 Looping Arrays: forEach
+    So far, you can use for/while and for-of loops to iterate through arrays
+
+    .forEach('callback function'('current element', 'current index', 'entire array')) array method (ES5/ES2009) is a higher-order function that requires a callback function:
+        The current element in each iteration is passed as an argument to the callback function
+
+        The index is passed as the second paramenter, and the entire array is passed as the third paramter (ORDER matters)
+
+    Important differences between for/for-of and .forEach():
+        .forEach() CANNOT use break and continue keywords, for loops can
+
+        .forEach() can be slightly cleaner and easier to utilize
+
+
+L145 forEach With Maps and Sets
+    .forEach('callback function'('value', 'key', 'map')) also works with maps and sets (but NOT objects):
+        In sets, the keys are the same as the values since sets has no order and has unique values (and developers wanted to keep the syntax consistent) so you can use '_' for the second paramter
+
+    In JS, '_' signifies a throw away variable that is unecessary
+
+
+L146 PROJECT: "Bankist" App
+
+
+L147 Creating DOM Elements
+    It is not good practice to start writing code in the global context, better to encapsulate it inside a function
+
+    Also, should pass data into a function instead of having the function work with a global variable
+    
+    Template literals are great for making html template strings
+
+    .insertAdjacentHTML("'position'", 'html string') is a DOM menthod that inserts HTML string after the specified position:
+        'beforebegin' - outside above the element opening tag
+        'afterbegin' - inside right after the element opening tag 
+        'beforeend' - inside right before element end tag
+        'afterend' - outside right below element end tag
+    
+    .innerHTML is a DOM property that returns the entire HTML including the tags
+    
+    .textContent is a DOM property that returns only the text contained inside the HTML
+
+
+L148 Coding Challenge #1
+
+
+L149 Data Transformations: map, filter, reduce
+    3 important data transformation array methods (ES5/ES2009):
+        1. .map() - Returns a NEW array containing the results of applying an operation on all original array elements
+
+        2. .filter() - Returns a NEW array containing the array elements that passed a specifed test condition
+
+        3. .reduce() - Reduces all array elements down to one single "reduced" value (e.g. adding all elements together)
+
+
+L150 The map Method
+    'array name'.map(function('current element', 'current index', 'array') { "callback function body returns value" })
+
+    Using array methods to solve problems (e.g. .map() to transform each eleemnt) is in more line with functional programming paradigm
+
+    In modern JS, there is a push for functional programming
+
+    Using arrow functions for small callback functions leads to smaller, cleaner code but people argue that the lack of function and return keyword leads to back readability
+
+    When we iterate through the array and perform some action (e.g. console.log()), these are called 'side effects'. However with the array methods, all we do is return a new array, that we can then perform actions on (e.g. console.log()), thus having no side effects.
+    This is an important concept in functional programming.
+
+
+L151 Computing Usernames
+    To repeat a previous important point, functions should receive the data it should work with instead of using a global variable
+
+    If we just want to transform/mutate an object, then there is no need to return anything and will just have to iterate and mutate as a side effect
+
+
+L152 The filter Method
+    `array name`.filter(function('current element', 'current index', 'array') { "callback function body returns BOOLEAN value" })
+
+    Keeps the elements that returns 'true' in the callback function
+
+    We use the transformation array methods for more functional code, as well as for chaining arrays
+
+
+L153 The reduce Method
+    'array name'.reduce( function('accumulator', 'current element', 'current index', 'array') { "callback function body returns new ACCUMULATOR value }, 'initial accumulator value')
+
+    The accumulator snowball effects; Can be any action as long as we reduce the array into a single value
+
+    Without .reduce() transformation array methods, we would have to rely on an external accumulator variable which does not lead to functional code
+
+    Once again, callback arrow functions can compant and clean up the .reduce() method call
+
+
+L154 Coding Challenge #2
+    .forEach() and other array iterations IS AFFECTED by array mutation side-effects (e.g. splice)
+
+
+L155 The Magic of Chaining Methods
+    Method chaining can be thought as a pipeline that processes our data
+
+    However, it can be difficult to debug if any of the steps messes up; Can log the array parameter to check the data as it transforms
+
+    Do not overuse chaining, since chaining tons of methods can cause performance issues for huge arrays; Look for wys to optimize the chaining
+
+    It is bad practice in JS to chain methods that mutate the underlying original array, such as .splice() and .reverse()
+
+
+L156 Coding Challenge #3
+
+
+L157 The find Method
+    .find() array method (ES6/ES2015) can be used to retrieve one element from an array based on a condition:
+        Does not return a new array but the FIRST element that satisfies the condition
+
+        If the element does not exist, returns undefined
+
+    'array name'.find(function('current elemnet', 'current index', 'array') { "callback function body that returns a BOOLEAN value})
+
+    The main difference between .filter() vs .find():
+        1. .filter() returns all the elements that match the condition while .find() only returns the first one
+
+        2. .filter() returns a new array while .find() returns only the element itself
+
+
+L158 Implementing Login
+    For a button element within an form element, the default behavior is for the button send the POST request and then reload the page
+
+    If you remember, the callback function for the event handler is passed the event object as the first parameter that contains information regarding the event:
+        'selector'.addEventListener('event', function('event object') { "callback function body" } )
+    
+    'event object'.preventDefault() event object method prevents the default behavior for that event
+
+    Remember we can use optional chaining with '?' to check if objects exist before 
+
+    Remember you can assign multiple variables using '=' to chain the assignment:
+        'var 1' = 'var 2' = ...etc. = 'value'
+
+    'selector'.blur() selector method blurs out the cursor hover
+
+
+L159 Implementing Transfers
+    Standard practice to disable default form behavior using .preventDefault() event object method
+
+
+L160 The findIndex Method
+    .findIndex() array method (ES6/ES2015) can be used to retrieve the index of the first matching element in the array:
+        Does not return a new array but the INDEX of the FIRST element that satisfies the condition
+
+        If the element does not exist, returns -1
+
+    'array name'.findIndex(function('current elemnet', 'current index', 'array') { "callback function body that returns a BOOLEAN value})
+
+    The main difference between .findIndex() vs .indexOf():
+     For .indexOf() we can only search for a value that is in the array while for .findIndex(), we can specify a more complex condition in the callback function 
+
+
+L161 some and every
+    .some() array method (ES5/ES2009) iterates through the array, and returns true if ANY element matches the conditional callback function, or false otherwise
+
+    .every() array method (ES5/ES2009) iterates through the array, and returns true if EVERY element matches the conditional callback function, or false otherwise
+
+    'array name'.some(function('current elemnet', 'current index', 'array') { "callback function body that returns a BOOLEAN value})
+
+    'array name'.every(function('current elemnet', 'current index', 'array') { "callback function body that returns a BOOLEAN value})
+
+    The main difference between .some() vs .includes():
+        For .includes() method (ES7/2016) only tests for value equality, while .some() method can specify a more complex condition in the callback function
+
+    For cleaner code, we can separate our callback function into a variable for reuse
+
+
+L162 flat and flatMap
+    .flat('depth') array method (ES10/ES2019) "flattens" or removes nesting from an array:
+        .flat('depth') only goes 1 level deep by default, and does not flatten deeply nested array unless specifed by 'depth'
+
+    .flattMap() array method (ES10/ES2019)performs .map() first, then .flat(), but flattens only 1 level deep
+        .flatMap(function('current element', 'current index', 'array'))
+
+
+L163 Sorting Arrays
+    .sort() array method sorts the array alphabetically AS STRINGS by default, and MUTATES the original array:
+        .sort(function('element 1', 'element 2') { "return < 0 (ex. -1) to KEEP order, return > 1 (ex 1) to SWITCH order"})
+
+        So returning a NEGATIVE number KEEPS the order the same, while returning a POSITIVE number SWITCHES the order 
+
+        For arrays with mixed data types, do NOT use .sort()
+
+    Remember, you can use .slice() method to create a copy of an array while method chaining
+
+
+L164 More Ways of Creating and Filling Arrays
+    When we have the data, we can create arrays with the passed data using bracket literal or the Array constructor
+
+    new Array() constructor method:
+        1. new Array('size') creates a new EMPTY array of that size
+
+        2. new Array('element 1', 'element 2', etc...) creates a new FILLED array with passed arguments
+
+    Using .map() to fill an EMPTY array does NOT work
+
+    .fill() array method (ES6/ES2015) fills an array with the specified data and MUTATES the original array:
+        .fill('fill data', 'starting index', 'end index')
+
+        .fill works on both EMPTY and FILLED arrays
+
+        Index specification works similar to the .slice() array methods
+
+    Array.from() constructor method (ES6/ES2015) can also be used to construct array programmatically:
+        Array.from({length: 'specified length'}, 'mapping function')
+
+        Array.from('array like structure', 'mapping function')
+
+        Can also be used to construct array from array-like structures such Iterables like Strings, Sets, Maps OR NodeLists commonly returned from .querySelectorAll():
+            Remember you can also convert them into an array using the spread operator
+
+
+L165 Summary: Which Array Method to Use?
+    Which array method to use?
+
+    To mutate original array
+        1. Add to original:
+            .push(), .unshift()
+        2. Remove from original:
+            .pop(), .shift(), .splice()
+        3. Others:
+            .reverse(), .sort(), .fill()
+    
+    (Create) A new array
+        1. Computed from original:
+            .map()
+        2. Filtered using condition:
+            .filter()
+        3. Portion of original:
+            .slice()
+        4. Adding original to other:
+            .concat()
+        5. Flattening the original:
+            .flat(), .flatMap()
+    
+    (Find) An array index
+        1. Based on value:
+            .indexOf()
+        2. Based on test condition:
+            .findIndex()
+
+    (Find) An array element: 
+        1. Based on test condition
+            .find()
+
+    Know if array includes
+        1. Based on value:
+            .includes()
+        2. Based on test condition:
+            .some(), .every()
+
+    A new string
+        1. Based on separator string:
+            .join()
+
+    To transform a value
+        1. Based on accumulator:
+            .reduce()
+            (Boil down array to a single value of any type: number, string, boolean, or even new array or object)
+    
+    To just loop an array
+        1. Based on callback:
+            .forEach()
+            (Does not create a new array, just loops over it)
+
+
+L166 Array Methods Practice
+    'number'++ returns the OLD value while the prefixed ++'number' returns the NEW incremented value
+
+    .reduce() method is extremely versatile as you can set the accumulator to anything like an object AS LONG as you return the new accumulator
+
+
+L167 Coding Challenge #4

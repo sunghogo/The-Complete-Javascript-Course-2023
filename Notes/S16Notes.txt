@@ -1,0 +1,467 @@
+L244 Section Intro
+
+
+L245 Section Roadmap
+
+
+L246 Asynchronous JavaScript, AJAX and APIs
+    Synchronous:
+        Most code is Synchronous
+        
+        Synchronous code is executed Line by Line
+
+        Thread of Execution:
+            Part of execution context that actually executes the code in the computer's CPU
+
+        Each line of code waits for previous line to finish;
+
+        Long-running operations BLOCK code execution
+
+    Asynchronous:
+        Asynchronous code is executed AFTER a task that runs in the "background" finishes
+
+        Asynchronous code is NON-BLOCKING
+
+        Execution doesn't wait for asynchronous task to finish its work
+
+        Asynchronous programming is coordinating behavior of a program over a period of time
+
+        Callback functions alone do NOT make code asynchronous!
+
+        .addEventListener does NOT automatically make code asynchronous! (since there is no asynchronous behavior at all)
+
+    AJAX:
+        Asynchronous JavaScript And XML (AJAX): Allows us toc communicate with remote web servers in an ASYNCHRONOUS way. With AJAX calls, we can REQUEST DATA from web servers dynamically.
+
+        CLIENT (e.g browser) REQUEST (GET / POST / etc.) data from WEB SERVER (usually web API) that sends data back in RESPONSE
+
+    API:
+        Application Programming Interface: Piece of software that can be used by another piece of software, in order to allow APPLICATIONS to TALK to EACH OTHER
+
+        There are many types of APIs in web development:
+            DOM API, Geolocation API, Own Class API, "Online" API (Just "API")
+        
+        "Online" API: Application running on a server, that receives requests for data, and sends data back as response
+
+        We can build OUR OWN web API's (requires back-end development, e.g. with node.js) or use 3rd-party APIs
+
+        There is an API for everything:
+            - Weather data
+            - Data about countries
+            - Flights data
+            - Currency conversion data
+            - APIs for sending email or SMS
+            - Google Maps
+            - Millions of possibilites...
+    
+    AJAX:
+        XML is a data format that was popular in the past but is no longer used
+
+        JSON data format is the most popular API data format (since it is basically a JS object converted to a string)
+
+
+L247 IMPORTANT: API URL Change
+    API URL Changed from:
+        https://restcountries.eu/rest/v2/
+    To:
+        https://restcountries.com/v2/
+
+        https://restcountries.com/v3.1/
+
+    Public APIs:
+        https://github.com/public-apis/public-apis
+
+        Should have no authentication, HTTPS set to YES, and Cross Origin Resource Sharing (CORS) set to YES/Unknown 
+
+        Search API Endpoint to look for URL
+
+
+L248 Our First AJAX Call: XMLHttpRequest
+    new XMLHttpRequest() constructor function is the old school way of doing AJAX calls:
+        .open('HTTP request type', 'URL string') method opens the request to the specified Endpoint
+
+        .send() method sends the request asynchronously
+
+        .addEventListener('load', 'callback function' {
+            const [data] = JSON.parse(this.responseText)
+        }) 
+        is used to retrieve the response that is sent back ('this' refers to the response, while .responseText is the property containing the data in JSON)
+
+        JSON.parse() function to turn the retrieved data into an array of objects
+
+    Having multiple AJAX calls in parallel (happening at the same time) will have different order when the data arrives
+
+
+L249 [OPTIONAL] How the Web Works: Requests and Responses
+    Request-response model or Client-server architecture:
+        CLIENT (e.g browser) REQUEST (GET / POST / etc.) data from WEB SERVER (usually web API) that sends data back in RESPONSE
+
+        Client:
+            https://restcountries.eu/rest/v2/alpha/PT
+            
+                Protocol (HTTP or HTTPS): 'https://'
+                Domain name: 'restcountries.eu'
+                Resource '/rest/v2/alpha/PT'
+
+            Steps:
+                1. Domain Name Server - A special server that acts like a phonebook for IP addresses
+                    DNS lookup to find the real IP address of a domain name
+
+                    https://104.27.142.889.443
+
+                        Protocol (HTTP or HTTPS): 'https://'
+                        IP address: '104.27.142.889'
+                        Port number (Default 443 for HTTPS. 80 for HTTP): '.443'
+
+                2. Transmission Control Protocol (TCP)/Internet Protocol (IP) socket connection is established between the browser and web server
+                    Connection is kept alive until all files of a website or all data has been transferred
+
+                    TCP/IP together are communication protocols that define how data travels accross the internet (Internet's fundamental control system)
+
+                3. Hypertext Transfer Protocol (HTTP) request is made from the browser to the web sever:
+                    HTTP is another communication protocol (a system of rules that allows two or more parties to communicate)
+
+                    HTTP allows clients and web servers to communicate by sending requests and response messages from clients to servers and back
+
+                    HTTP Request Message:
+             
+             
+                        GET /rest/v2/alpha/PT HTTP/1.1
+
+                        Host: www.google.com
+                        User.Agent: Mozilla/5.0
+                        Accept-Language: en-US
+
+                        <BODY>
+
+                        Start line: HTTP method + request target + HTTP version
+                            HTTP methods:
+                                1. GET - for reuqesting data
+                                2. POST - for sending data
+                                3. PUT / PATCH - to modify data
+                            Request target: Where the server is told where to access the specific resource
+                        
+                        HTTP request headers (many different possibilites):
+                            Information sent about the request itself
+
+                        Request body (only when sending data to server e.g. POST):
+                            Contains the data that were sending (e.g. data from HTML form)
+            
+            Web Server:
+                4. HTTP response is used to send data back to the browser from the server:
+
+                    HTTP Response Message:
+
+                        HTTP/1.1 200 OK
+
+                        Date:Fri, 18 Jan 2021
+                        Content-Type: text/html
+                        Tranfer-Encoding: chunked
+
+                        <BODY>
+
+                        Start line: HTTP version + status code + status message
+                            Status code and message - Used to let client know the request is ok (e.g. 200 is ok, 404 is failed)
+                        
+                        HTTP response (many different possibilities):
+                            Information about the response itself
+
+                        Response body (mostly response):
+                            Usually contains JSON data from API or html of website
+
+                5. Arrives back to client/web browser:
+                    1. index.html is first to be loaded
+                    2. Scanned for assets: JS, CSS, images
+                    3. Process is repeated for each file
+
+        HTTPS is encrypted using TLS or SSL, some more encryption protocols while HTTP is not
+
+        TCP/IP:
+            TCP breaks requests and responses down into small chunks of data called packets:
+                This is necessary so each packet can take a different route through the internet, and arrive faster
+            
+            The role of IP is send and route all the packets through the internet to the correct destination using IP address on each packet 
+
+            Once all the small packets arrive at the final destination, TCP reassemble all packets into the original request or response
+
+
+L250 Welcome to Callback Hell
+    The order of multiple AJAX calls running in parallel can be controlled using nested AJAX callbacks
+
+    "Callback hell" is when there are a lot nested callbacks in order to complete asynchronous task synchronously:
+        Makes the code very messy, difficult to maintain, and difficult to reason about -> BAD CODE
+
+
+L251 Promises and the Fetch API
+    The Fetch API is the modern way of making AJAX calls:
+        fetch('Endpoint URL string')
+
+        returns a Promise object
+
+    Promise (ES6/ES2015):
+        Promise - An object that is used as a placeholder for the future result of an asynchronous operation
+        ->
+        Promise - A container for an asynchronously delivered value
+        ->
+        Promise - A container for a future value (Example: Response from AJAX call)
+
+        Two advantages:
+            1. We no longer need to rely on events and callbacks passed into asynchronous functions to handle asynchronous results
+
+            2. Instead of nesting callbacks, we can chain promises for a sequence of asynchronous operations: escaping callback hell
+
+    Since promises work with asynchronous operations they are time sensitive so promises can be in different states
+
+    Promise Lifecycle:
+        1. Pending - Before the future value is available
+        Async Task ->
+        2. Settled - Asynchronous task has finished
+        3.  Fulfilled - Success! The value is now available
+            Rejected - An error happened
+
+        We are able handle these different states in our code!
+
+        Also promises are only settled once, and the state remains unchanged forever
+
+        Build Promise - (e.g Fetch API returns promise)
+        ->
+        Consume Promise - When we already have a promise (e.g. promise returned from Fetch API)
+
+
+L252 Consuming Promises
+    The fetch('Endpoint URL string') returns a promise that returns a response object when it resolves
+
+    .then('callback function'('response object') { "callback function body" }) Promise method takes in one parameter, which is a callback function which also gets the resulting response object passed into it as an argument:
+        All resolved response object also has a .json() method avaiable that is also an asynchronous function that returns a promise with the response object containing the JSON data
+
+    So, 
+        1. The fetch() method returns a promise, which is handled by the first .then() method 
+        2. The first .then() method's callback function calls the asynchronous .json() method on the resolved response object, returning a new promise
+        3. The second .then() method is then called on the new promise, which resolves to the actual JSON data
+
+    Promises don't get rid of callbacks, but gets rid of callback hell and leads to more concise code
+
+
+L253 Chaining Promises
+    Whatever is returned from a promise becomes the fulfilled value of the promise, which is important note when chain consuming promises
+
+    Instead of callback hell with the right arrow indentation of chains, promises have a more maintainable flat chain of promises 
+
+    Promises are a more powerful and elegant solution to handle asynchronous code
+
+    A common mistake in chaining promises is to chain the .then() method on the new nested promise directly within the callback, leading to callback hell
+
+
+L254 Handling Rejected Promises
+    A promise in which an error happens is a rejected promise
+
+    For fetch(), the only way the fetch promise rejects is if the user loses his internet connection:
+        To simulate losing internet connection, we can:
+            Developer Console -> Network -> First header with 'Preserve log', 'Disable Cache' ON, etc... -> Presets -> Offline
+
+    Two ways to handle rejections/errors:
+        1. Pass a second callback function into the .then() method which is called with an argument which the Error object itself
+
+        2. Call .catch('callback function'('error object') { "callback function body" }) Promise method at the very END of the chain:
+            .catch() is only called only when the Promise is REJECTED, and catches the error wherever they occur in the chain
+
+            .catch() also returns a Promise so it can be chained as well
+
+            The Error object traces the stack chain for the error
+
+            The Error object also has a .message property that can be printed out to the console
+
+    Remember to use console.error() for errors
+
+    'DOM selector'.insertAdjacentText('position', 'message') method is used to insert text instead of HTML
+
+    .finally('callback function'('response/error object') { "callback function body" }) Promise method will ALWAYS call the callback method regardless whether the Promise was fulfilled or rejected:
+        Useful for when we need a callback to happen regardless of the result of the promise (e.g. hiding the web loading spinner)
+
+
+L255 Throwing Errors Manually
+    Even when the fetch request 404s, the fetch still did not reject so in this case we have to manually handle the error:
+        When the fetch response fails, the 'response object'.ok is set to 'false' so we can use that condition to throw an error object in the .then() callback:
+            throw new Error('error message')
+
+            'throw' keyword will immediately terminate the current function, and the execution flow will be passed to the first .catch() method with the thrown Error object
+            
+            The promise returned by the .then() handler will be a rejeceted promise, which will propagate down through the chain to the .catch() handler
+
+    It is bad practice to leave rejected promises and errors unhandled -- EXTREMELY IMPORTANT TO HANDLE ERRORS FOR BUILDING WEB APP UI
+
+
+L256 Coding Challenge #1
+
+
+L257 Asynchronous Behind the Scenes: The Event Loop
+    Review: JavaScript Runtime:
+        JS Runtime in the Browser - "Container" which includes all the pieces ncessary to execute JS code
+
+        JS Engine - "Heart" of the runtime
+
+        Call Stack - Where code is actually executed
+            -> Only ONE thread of execution, No multitasking!
+
+        Heap - Where object are stored in memory
+
+        Web APIs - APIs provided to the engine (e.g. DOM, Timers, Fetch API, geolocation API, etc.)
+
+        Callback Queue - Data structure (ordered list) containing Ready-to-be-executed callback functions (coming from events)
+
+        Event loop - Sends callbacks from Callback Queue to Call Stack
+
+    How Asynchronous JavaScript Works Behind the Scenes:
+        How can asynchronous code be executed in a non-blocking way if there is only one thread of execution in the engine?
+
+        Web APIs - Where asynchronous tasks run (callbacks register in the Web API environment while the asynchronous tasks are resolved)
+
+        Once the events are resolved, asynchronous task / callbacks placed from Web API environment onto the Callback Queue:
+            This means that the callback may have to wait for other callbacks in front of the queue to finish
+
+            So the timers are NOT a gaurantee that it will take place after the specifed time has passed, but a minimum of time
+
+            DOM event callbacks, although not asynchronous behvaior, also line up in the Callback Queue
+        
+        Event loop looks into the Call Stack, and checks whether it is empty or not:
+            If it is empty, it takes the first callback from the Callback Queue, and places it in the Call Stack to be executed, also called "Event Loop Tick"
+
+            Event loop - Decides when each callback is executed: orchestration
+
+        JS language itself has no sense of time, the runtime manages all the asynchronous behavior and the event loop decides which code will be executed next, but the engine just executes
+
+        Promise callbacks have a special queue for themselves called the "Microtasks Queue"
+
+        Microtasks Queue - Like callback queue, but for callbacks related to PROMISES. Has PRIORITY over callback queue!:
+            So after an event loop tick, the Event Loop will check if there are any callbacks ("microtasks") in the Microtasks Queue and place them into the Call Stack even if Callback Queue is not empty
+
+            So Microtask Queue can technically starve the Callback Queue if microtasks keep adding new microtasks
+
+
+L258 The Event Loop in Practice
+    Can create a new Promise that is immediately resolved using Promise.resolve('Fulfilled value') or failed using Promise.reject('Rejected value')
+
+    Global Execution Context -> Microtask Queue -> Callback Queue
+
+    Microtask Queue callbacks can STARVE the Callback Queue, so you cannot use timers for high precision applications
+
+
+L259 Building a Simple Promise
+    new Promise(function(resolve, reject) { "executor function body" }) constructor function is used to create new Promise objects that take in an 'executor' function as a parameter, which also takes in the 'resolve' and 'reject' paramenters:
+        The executor function contains the asynchronous behavior that is being handled by the promise, is called IMMEDIATELY as soon as it is consumed, and will produce a result value
+
+        Calling resolve('fulfilled value') will make the Promise fulfilled / resolved, and pass the 'fulfilled value' to the .then() handler 
+
+        Calling reject('rejected value') will make the Promise as rejected, and pass the 'rejected value' (usually a new Error()) eventually to the error and .catch() handler
+
+        Don't have to pass both resolve and reject in the arguments, only pass the one used
+
+    Usually, promises are only consumed and only build promises to wrap/convert old callback based functions/asynchronous behavior into promises/promise based, aka "promisifying"
+
+    You can promisfy timers for more manageable asynchronous behavior and avoid callback hell
+
+
+L260 Promisifying the Geolocation API
+    navigator.geolocation.getCurrentPosition() is a callback-based API that we can promisfy
+
+    You can can pass resolve and reject arguments in the Promise executor function directly as the callback function of asynchronous function we are trying to promisfying if all we are resolving the passed arguments of the callback
+
+    Can also promisfy the old XMLHttpRequest() construction function for AJAX calls
+
+
+L261 Coding Challenge #2
+    'img element'.onload and 'img element'.onerror are properties that you have to ASSIGN a callback function to
+
+    img.addEventListener('event', 'callback') with 'event' = 'load' / 'error' achieves the same thing as img.onload and img.onerror but more widely used due to its flexibilty
+
+
+L262 Consuming Promises with Async/Await
+    async/await (ES2017/ES8) introduced an easier way to consume promises
+
+    'async' keyword in front of a function declataion turns the function into an asynchronous function that will run in the backgroun
+        async function() {} 
+
+        Returns a promise (converts the return value to a promise if it already isn't a promise )
+
+        Inside an async function, we can have one or more 'await' statements that will STOP code exeuction until the awaited promise is fulfilled:
+            await 'Promise'
+
+            The value of the whole await statement is the resolved value of the promise, and can be assigned to a variable
+
+            This is not code blocking  because stopping an asynchronous function running the background does not stop code execution
+
+    Using async/await allows asynchronous code to feel synchronous, but it is just really syntactic sugar over the the .then() method in promises behind the scenes
+
+    async/await are used often with .then() mehod consuming promises
+
+
+L263 Error Handling With try...catch
+    try...catch has been in JS since before ES6, and has nothing to do with async/await:
+        try {
+            "code block"
+        } catch('error') {
+            "code block"
+        }
+
+        If the code execution in the 'try' code block fails, then it switches to the 'catch' code block with the Error object passed from the try block
+
+        This can be used to catch errors in async functions, and it is good practice to use it for that purpose
+
+
+L264 Returning Values from Async Functions
+    If you are using try-catch statements to catch errors in asyncs, you will have to throw the error TWICE in both the try and catch blocks, otherwise the return value of the async will still be the promise that was fulfilled with the resolved value being the first thrown error:
+        This is important if you are mixing .then()/.catch() promise methods on the async function
+
+    Otherwise, if you don't mind stopping the code execution on error, you can get rid of the try-catch statement and just throw the error once
+
+    For now, you can only use await within an async function (BUT there is a proposal looking to change this):
+        So the way around this is to create an async Immediately-Invoked Function Expressions (IIFE)
+
+        In the try-catch code blocks of the async IIFE, it is NOT NECESSARY to throw errors since:
+            1. Throwing an error within a nested await async function will propagate outwards
+            2. The IIFE async function will be thrown away 
+            3. There is no need to mix .then()/.catch() with async/await that needs the promise to properly fulfill or reject
+
+        In this async model: 
+            1. awaits are used as .then()
+            2. the catch('error') {} block is used as .catch()
+            3. everything else after the try-catch statement is used as .finally() 
+
+    Just like how can we chain consume promises using .then(), we can also chain async functions using await on nested asyncs
+
+
+L265 Running Promises in Parallel
+    In Developer Console -> Network, you can see the waterafall of what and when files/data has been and downloaded
+
+    Promise.all('array of promises') (ES6/ES2015) is a static Promise constructor method that returns a new Promise that will run all the input promises at the same time/in parallel, and settles (then fulfills) if ALL of them resolves OR if there are no promises:
+        Promise.all() shortcircuits and rejects when one promise rejects
+
+        When the return promise resolves, its fulfilled value is an array of all the RESOLVED VALUES of the input promises
+
+
+L266 Other Promise Combinators: race, allSettled and any
+    Promise.race('array of promises') (ES6/ES2015) is a static Promise constructor method that returns a new Promise that will SETTLE/shortcircuit as soon as one of the input promises SETTLES (regardless of whether it was fulfilled or rejected):
+        The SETTLED value of the new returned promise is the settled value of the input promise that won the race, and will EITHER fulfill or reject depending on the input promise
+
+        Practically, Promsie.race() is useful to end never-ending or long-running promise chains by using a timeout promise
+
+    Promise.allSettled('array of promises') (ES11/ES2020) is a static Promise constructor method that will return a new array of Promises of all the STETTLED promises (whether fulfilled or rejected):
+        The returned promise will always fulfill as long as the input promises are settled
+
+    Promise.any('array of promises') (ES12/ES2021) is a static Promise constructor method that will return a new Promise of that will SETTLE(and then fulfill) as soon as one of the input promises FULFILL (rejected promises are ignored):
+        The returned promise will SETTLE (and then reject) if there are no fulfilled promises
+        
+        The main difference between Promise.race() is that:
+            Promise.any() settles on the first FULFILLED promise, and becomes fulfilled
+
+            Promise.race() settles on the first SETTLED promise, and becomes fulfilled OR rejected depending on that settled promise
+
+
+L267 Coding Challenge #3
+    It is now allowed to use catch instead of catch ('error') in try-catch statements
+
+    Remeber with error handling in async/await with try-catch, throwing errors at catch will propagate the error outward, and stop the parent execution context
+
+    Unlike for and for-of loops, .forEach() array methods iterates and executes the callbacks on all the array elements simultaneously
+
+    Remember you can extract the resolved values of input promises into an array using Promise.all() (other Promise combinator methods and consuming promises with .then cannot directly do this)

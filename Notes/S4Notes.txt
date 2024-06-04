@@ -1,0 +1,15 @@
+L51 Pathways and Section Roadmaps
+    Course Pathways:
+        Pathway 1: Everything!
+        Pathway 2: Only Imporant parts
+        Pathway 3: Only Porjects with UI
+        Pathway 4: Only Language Itself (no UI)
+        Pathway 5: Only Interested in Framworks
+        Pathway 6: Job Interview Preparation
+        Pathway 7: Only What's New in Version 2
+
+    Section Roadmaps:
+        Overview of each section:
+            Very Important
+            Good to know
+            Optional

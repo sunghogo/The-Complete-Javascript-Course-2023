@@ -1,0 +1,480 @@
+L268 Section Intro
+
+
+L269 Section Roadmap
+
+
+L270 An Overview of Modern JavaScript Development
+    Modern JavaScript Development:
+        Development: 
+            We now divide our project into multple modules to make our project more organized and maintainable:
+                Before we used to divide into multiple scripts and send them
+            
+            Can include 3rd-party modules
+
+            Node Package Manager(NPM):
+                Originally developed for Node.js, but is now the go to repository for all kinds of packages in modern JS development 
+ 
+                Contains open-source packages to include 3rd-party code in our own code (e.g React, jQuery, Leaflet, etc.)
+
+                NPM is both repository in which packages lives, and the program we use on the computer to install and manage these packages
+
+        Build Process:
+            One big JS bundle is built which will deployed to the web server for production
+
+            Bundling - Joins all the modules into one file:
+                Important for two reasons:
+                    1. Older browsers don't support modules
+                    2. Better for performance to send less files, and bundling step compresses the code
+
+            Transpiling/Polyfilling - Convert modern JS back to ES5:
+                Transpiling - Converts code writtern in (newer) ES versions to other (older) ones
+
+                Polyfilling - Implements features in JS that is unavailable in the current JS environment; Commonly used for features that can't be transpiled
+
+                Usually done using a tool called Babel
+
+            We don't do the build process ourselves, and use build tools:
+                Webpack and Parcel are the common "JS Bundlers" developer tools:
+                    Webpack is the more popular one but can be more configuration intensive
+
+                    Parcel is 0 configuration and requires no setup code
+
+                These development tools are also on NPM
+
+        Production: 
+            Production means the application is used by real users in the real world
+
+        Development -> Build Process -> Production
+
+
+L271 An Overview of Modules in JavaScript
+    Module: 
+        Resuable piece of code that encapsulates implementation details
+
+        Usually a standalone file, but it doesn't have to be
+
+        We can import ("Dependency") and export ("Public API") module code 
+
+        Module Benefits in Software Design:
+            1. Compose software: Modules are small building blocks that we put together to build complex applications
+
+            2. Isolate components: Modules can be developed in isolation without thinking about the entire codebase
+
+            3. Abstract code: Implement low=level code in modules and import these abstraction into other modules
+
+            4. Organized code: Modules naturally lead to a more organized codebase
+
+            5. Reuse code: Modules allow us to easily reuse the same code, even across multiple projects
+    
+    Native JavaScript (ES6) Modules:
+        Modules stored in files, exactly one module per file
+
+        ES6 Module:
+            1. Top-level variables: Scoped to module (so can only be seen by exported)
+            2. Default Mode: Strict mode
+            3. Top-level this: undefined
+            4. Imports and exports: YES
+            5. HTML lnking: <script type="module">
+            6. File downloading: Asynchronous
+
+        Script:
+            1. Top-level variables: Global
+            2. Default Mode: "Sloppy" mode
+            3. Top-level this: window
+            4. Imports and exports: NO
+            5. HTML lnking: <script>
+            6. File downloading: Synchronous (unless we use async or defer attributes on script tag)
+
+
+        imports and exports can only happen at the top-level
+
+        imports are hoisted
+
+    How ES6 Modules are imported:
+        Parsing the main script (read the code without execution) is when imports are hoisted:
+            Import Modules Before Execution:
+                Modules are imported SYNCHRONOUSLY (as in, the main script is only executed AFTER all the imported modules are downloaded and executed)
+
+                Possible thanks to top-level ("static") imports, which makes imports known BEFORE execution
+
+                This makes bundling and dead code elimination possible
+        ->
+        ASYNCHRONOUS downloading of modules (but run synchronously)
+        ->
+        Linking imports of main script to module exports ("live connection" so that exported values are NOT COPIED to imports, but imports are reference to the exported values):
+            Other modules systems cannot affect imported module values like this, but JS does
+        ->
+        Execution of modules
+        ->
+        Execution of main script
+
+
+L272 Exporting and Importing in ES6 Modules
+    For module files, it's convention to using camelcase names
+
+    Importing modules:
+        import 'module path':
+            './' path is relative to the module file that is importing, not the HTML file
+
+            If we want to import modules in a JS file, then we have specify in HTML that the JS file is of <script type="module" src="JS file path"></script>
+
+        Code in all the modules that are imported is parsed and executed first
+
+        Import statements are hoisted to the top
+
+        All modules are executed in "use strict" mode by default
+
+        All variables declared inside a module are scoped to this module, and all top-level variables are private (unlike scripts)
+
+    Exporting modules:
+        Two types of exports:
+            1. Named exports - specify/name exports
+            2. Default exports - export only one (default) thing per module
+
+        export 'variable/function/etc... declaration'
+        OR
+        export {'export name 1', 'export name 2', etc...}:
+            Need to be followed up in the importing module:
+                import {'variable/function/etc... name'} from 'imported module path'
+
+            exports are typically listed at the end of the module
+
+            exports can only happen in top-level code (and not nested in blocks)
+
+    'as' keyword can be used to set a different name to the variables/functions from BOTH import and export statements
+
+    '*' can be used to import or export everything:
+        import/export * as 'namespace object name' (from 'module path')
+
+        import * can be specified into a namespace object using 'as':
+            Imports has to be referenced as a property/method of the specified namespace
+
+    Exporting modules are basically exporting like a public API, just like a class
+
+    'default' keyword is used to specify the one VALUE that we want to export:
+        export default 'expression'
+
+        import 'any name' from 'imported module path'
+
+        Since there is only one default value exported, we can specify it using any name without {}
+
+    You can mix multiple named and default imports/exports, but in practice this is not done due to messy code
+
+    The preferred style is to use one default export per module, but this is not a rigid rule
+
+    Exports are live connections, so imports are NOT copies of the original variables and objects of the exports:
+        Mutating them in the import module also mutates them in the export modules since imports are pointers to the same placein memory of the exports
+
+
+L273 Top-Level await (ES2022)
+    await can now be used outside of async function for top-level modules and functions (ES2022/ES13):
+        Using top-level awaits will BLOCK the entire execution of the module now, which may not be something we want
+
+        Can now use top-level await to extract fulfilled promise values instead of having to use .then() or async/awaits
+
+        Top-level awaits in an exporting module will also BLOCK the execution of the importing module, allowing control of code execution across modules
+
+    JSON Placeholder API contains fake data abouts posts, comments, etc.
+
+    .at('index') (ES2022/ES13) array method can be used to retrieve element from array using postiive and negative numbers for the index
+
+
+L274 The Module Pattern
+    Main goal of module pattern used before native ES6 modules is to:
+     1. Encapsulate functionality to have private data 
+     2. To expose a public API
+
+     Best achieved using an IIFE to return an object with the methods and propertyies you want accessible publicly, and assigned it the results to a variable/"namespace"
+
+     This works due to closure
+
+     Problems arise if wanted one module per file, since we need to create different scripts and link them all in the HTML file:
+            1. Order of linked scripts MATTER
+            2. All the variables are living in the global scope
+            3. Can't use a module bundler to bundle them all together
+
+    
+L275 CommonJS Modules
+    Besides Module Pattern and native ES6 modules, there were other module systems used in the past:
+        1. AMD modules
+        2. CommonJS modules
+
+    CommonJS modules are important because they have been used by Node.js almost for all its existence (until recent replacement by ES6 modules):
+        As a consequence, almost all the modules in the NPM repository still use the CommonJS system
+
+    Remeber Node.js is a way of running JS on a web server outside of the browser
+
+    CommonJS:
+        One file is one module
+
+        export.'name of the export' = 'expression':
+            This export keyword is an object defined in Node.jS and does NOT run in our browser
+
+        const { 'name of import' } = require('module path'):
+            Once again, this require keyword is defined only in Node.js and NOT the browser
+
+    
+L276 A Brief Introduction to the Command Line
+    In VS Code integrated terminal, the shell used will be different depending on the OS (UNIX/Max vs Windows)
+
+    ls (UNIX) / dir (Windows) will show the files in the current directory/folder
+
+    cd 'directory name' (UNIX/WINDOWS) to change directory:
+        cd .. to move to parent directory
+        cd 'directory name'
+        cd ../.. to move up 2 directories
+
+    clear (UNIX/WINDOWS) to clear the terminal log
+
+    mkdir 'directory name' (UNIX/Windows) to make a new directory/folder
+
+    touch 'filename 1' 'filename 2' 'etc...' (UNIX) to create or update date accessed a file
+
+    rm 'filename' (UNIX) and del (Windows) to delete files:
+        -r flag recursively deletes all files in a directory, and then the directory itself
+
+    mv 'filename' 'new directory' (UNIX) to move files to another directory/folder
+
+    rmdir 'directory name' (UNIX/Windows) to delete directories
+
+
+L277 Introduction to NPM
+    Node Package Manager (NPM) is both a software on our computer and a package repository
+
+    Back in the days, we would include external libraries right into the HTML using <script> and expose global variables, but this creates problems for big projects:
+        1. This is not manageable, and loading all our scripts in the html will become messy
+        2. We would download library files to our computer directly, and would have to change it in the <script> tag every time it was updated
+        3. Before NPM, there was no single repository that contained all the packages we might need, so we would have to manually download and manage them
+
+    Check for Node.js/NPM installation and version
+        node -v / npm -v:
+
+        npm v6 < is good
+
+    To initialize a project, and create a package.json file, go into the project directory and:
+        npm init
+
+        This will ask a couple questions:
+            Name of the package (which defaults to whatever is in the parenthesescd)
+
+    To install a library/dependency:
+        npm install 'dependency name'
+        or
+        npm i 'dependency name'
+
+        This will:
+            1. Creates/adds the dependency to the "dependency" property in package.json and package-lock.json
+            2. Creates/adds the dependency to the node_modules directory
+
+        npm i:
+            Using this command without specifying anything will reach into the package.json file and automatically download any dependency
+
+    To actually use the depndency, it would be difficult without a module bundler since many libraries use the CommonJS module system that does NOT WORK in JS browser environment
+
+    Popular libraries:
+        Lodash - A collection of ton of useful functions for arrays, objects, functions, dates, and more:
+            "lodash-es" is the ES version that works natively with JS 
+
+    Lodash:
+        cloneDeep() function is able to clone a deeply nested object that no longer references the original on heap
+
+    If you want to move or share you project to another computer and check it into version control like git, NEVER include the huge node_modules folder:
+        Use the package.json file and 'npm i' to reinstall any dependencies again
+
+
+L278 Bundling With Parcel and NPM Scripts
+    Parcel is just another build tool that is on NPM, and easy to setup and use:
+        npm i parcel --save-dev:
+            '--save-dev' specifies this dependency as a "devDependency" in package.json
+            
+            A "devDependency" is a tool we need to build our application, but is not included in our code
+
+        parcel 'index.html':
+            This will build and start the development server
+
+            This does not work with locally installed pacakges, only globally installed packages
+
+        parcel build 'index.html':
+            This will do the final build with compression and dead code elimination
+
+            Delete "main" property in package-json if entry point is HTML (parcel.html) since this will create an error as "main" specifies entry point for npm
+
+    To still be able to work with parcel we can use:
+        1. NPX - An application build into NPM:
+            npx parcel 'index.html'
+
+            This will:
+                1. Bundle up all the modules imported in index.html and its scripts/modules
+                2. Start a development server
+
+        2. NPM scripts - Running locally installed packages in the command line using scripts in package.json (this is how it's done in practice):
+            Specify "script name": "cl commands" in package.json
+
+            Can then run the scripts using:
+                npm run 'script name'
+
+    NPM commands:
+        npm i 'dependency'@'version'
+
+        npm uninstall 'dependency'
+
+        npm i 'dependency' -g:
+            This will install the package globally instead of locally, and will allow us to use commands (like "live-server")
+
+            However, tools will recommend developers to install the packages locally so that they can always stay on top of the latest version
+
+    Parcel:
+        Parcel will bundle the files and create a dist directory, which contains the files actually sent to our endusers:
+            The build step will have Parcel  inject and modify its own code so that the dependencies are directly inside the same script
+
+            Everytime we save the original files, Parcel will rebuild its dist files
+
+        Hot Module Reloading - Whenever we change one of the modules and trigger a rebuild, the new modified bundle with automatically will be injected into the browser without having to reload:
+            Useful for maintaining state
+
+            Requires this line of code in the module that is only read and executed by Parcel:
+                if (module.hot) {
+                  module.hot.accept();
+                }
+
+        Parcel will also parse dependency paths, so in import statement, we only need to specify the dependency name as found in package.json:
+            Works with all kinds assets like HTML, CSS, SaSS files, images, and modules (ES6 and CommonJS)
+
+    Wheneer we are done developing, we have to build the final bundle that is compressed and has dead code elimination:
+        parcel build 'index.html'
+
+
+L279 Configuring Babel and Polyfilling
+    It's still important to transpile and polyfill our JS back into ES5 since many people have older OS
+
+    Parcel automatically uses Babel to transpile our code with good default settings
+
+    Babel is a JS compiler:
+        https://babeljs.io/docs/
+
+        A Babel transform plugin is a specific JS feature we want to transpile:
+            Instead of using single plugins, Babel uses presets which are a bunch of plugins bundled together
+
+        Babel can only transpile ES6 syntax (arrow functions, const/let, classes, spread operator), BUT not really for real new features added to the language like Promise:
+            For the features that are not easily transpiled, we polyfill them
+
+            Babel used to do polyfilling but now recommends importing another library, CoreJS
+
+    Parcel uses the @babel/preset-env:
+        This preset will automatically select which JS features should be compiled based on browser support
+
+        This only includes final features that passed the 4 stages of the ECMA process
+
+        Need to manually in include experimental plugins for features that are not finalized yet
+
+    Core-JS is a library used for polyfilling:
+        npm i core-js
+
+        import 'core-js/stable'
+
+        This will polyfill everything even if they are not used:
+            We can instead cherrypick the ones we use like this:
+                import 'core-js/stable/array/find'
+
+    Regenerator-Runtime is a library used to polyfill async functions:
+        npm i regenerator-runtime/runtime
+
+        import 'regenerator-runtime/runtime'
+
+
+L280 Review: Writing Clean and Modern JavaScript
+    Review: Modern and Clean Code:
+        Readable Code:
+            1. Write code so that OTHERS can understand it
+            2. Write code so that YOU can understand it in 1 year
+            3. Avoid too "clever" and overcomplicated solutions
+            4. Use descriptive variable names: WHAT THEY Contains
+            5. Use descriptive function names: WHAT THEY DO
+
+        General:
+            1. Use DRY principle (refactor your code)
+            2. Don't pollute global namespace, encapsulate instead
+            3. Don't use var
+            4. Use strong type checks (=== and !==)
+
+        Functions:
+            1. Generally, function should do ONLY ONE THING
+            2. Don't use more than 3 function paramters
+            3. Use default parameters whenever possible
+            4. Generally, return same data type as received
+            5. Use arrow functions when they make code more readable
+
+        OOP:
+            1. Use ES6 classes
+            2. Encapsulate data and DON'T MUTATE it from outside the class
+            3. Implement method chaining
+            4. Do NOT use arrow functions as methods(in regular objects)
+
+        Avoid Nested Code:
+            1. Use early return (guard clauses)
+            2. Use ternary (conditional) or logical operators instead of if
+            3. Use multiple if instead of if/else-if
+            4. Avoid for loops, use array methods
+            5. Avoid callback-based asyncrhonous API
+
+        Asynchronous Code:
+            1. Consume promises with async/await for beat readability
+            2. Whenever possible, run promises in Parallel (Promise.all)
+            3. Handle errors and promise rejects
+
+
+L281 Let's Fix Some Bad Code: Part 1
+
+
+L282 Declarative and Functional JavaScript Principles
+    Two fundamentally different ways of writing code (paradigms):
+        1. Imperative
+        2. Declarative
+
+    Imperative:
+        1. Programmer explains "HOW to do things"
+        2. We explain to the computer every single step it has to follow to achieve a result
+        3. Example: Step-by-step recipe of a cake
+
+    Declarative:
+        1. Programmer tells "WHAT to do"
+        2. We simply describe the way the computer should achieve the result
+        3. the HOW (step-by-step instructions) gets abstracted away
+        4. Example: Description of a cake
+
+    The declarative paradigm is a really big and popular programming paradigm, that has given rise to a sub-paradigm called functional programming that is now the modern way of writing JS code
+
+    Functional Programming:
+        1. Declarative programming paradigm
+        2. Based on the idea of writing software by combining many PURE FUNCTIONS, avoid SIDE EFFECTS and MUTATING DATA
+
+        Side-effect: Modification (mutation) of any data OUTSIDE of the function (mutating external variables. logging to console, writing DOM, etc.)
+
+        Pure function: Function without side-effects. Does not depend on external variables. GIVEN THE SAME INPUTS, ALWAYS RETURNS THE SAME OUTPUTS.
+
+        Immutability: State (data) is NEVER modified! Instead, state is copied and the copy is mutated and returned.
+
+        Examples: React (state is immutable), Redux
+
+    Functional Programming Techniques:
+        1. Try to avoid data mutations
+        2. Use built-in methods that don't produce side effects
+        3. Do data transformations with methods such as .map(), .filter(), and .reduce()
+        4. Try to avoid side effects in functions: this is of course not always possible or necessary!
+
+    Declarative Syntax:
+        1. Use array and object destructuring
+        2. Use the spread operator (...)
+        3. Use the ternary (conditional) operator
+        4. Use template literals
+
+
+L283 Let's Fix Some Bad Code: Part 2
+    Object.freeze('object') is used to make an object IMMUTABLE:
+        Only freeze the first level of the object / does not do a deep freeze:
+            There are 3rd party libraries to do a deep freeze
+
+    A function that produces side-effects are called "Impure Functions"
+
+    In the real world, would use currying to create a chain of operations without the use intermediate variables and composing to create one function which will then perform all these operations at once

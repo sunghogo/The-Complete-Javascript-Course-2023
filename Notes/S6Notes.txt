@@ -1,0 +1,131 @@
+L64 Basic HTML Structure and Elements
+    HTML - Hypertext Markup Language:
+        Used to describe the content of webpages
+    
+    HTML document is made up of elements:
+            <html>: main element enclosing the document
+            <head>: contains the settings for the website
+                <title>: the name of our website
+            <body>: contains the visible elements of the webstie
+                <h1>, ... , <h6>: describe headings lvl 1-6
+                <p>: describe a paragraph
+    
+    Body elements have some sort of formatting
+
+    HTML VS Code Extensions:
+        Auto Close Tags
+        Auto Rename Tags
+
+    VS Code HTML Boilerplate shortcut:
+        '!' +  TAB
+
+
+L65 Attributes, Classes and IDs
+    Some elements can have attributes that describe elements
+
+    You can nest elements in another as child elements
+
+    HTML elements/attributes:
+        <a>: anchor element
+        <a href="">: hypertext reference attribute
+        <img>: image element, no closing tag since there is no additional content
+        <img src="">: source attribute
+        <div>: generic box element
+        <input>: input element, no closing tag
+        <input type="">: input type attribute
+        <input placeholder="">: input placeholder attribute
+        <button>: button element
+        <form>: special form element
+
+
+    Inline elements falls in line with the rest of the text: <a>, <img>
+    Block elements are not in line with the previous element: <h1> ... <h6>, <p>
+
+    Class vs ID:
+        Classes and ID are crucial for identifying elements
+
+        The main difference between classes and IDs are that IDs have to be unique to one element
+
+        Class attribute:
+            <element class="class name">
+        
+        ID attribute:
+            <element id="id name">
+
+        In usages, classes are mostly used while IDs are only rarely used as it is better practice
+
+    Best way to make boxes in HTML is use <div>
+
+    The convention in HTML and CSS is to sepearate words with a '-'
+
+    Semantic HTML is the idea of using the appropriate element according to the content in it
+
+
+L66 Basic Styling with CSS
+    CSS - Cascading Style Sheets:
+        Used to style HTML
+
+    <style> element goes in the <head> section to specify internal CSS
+
+    Different ways to style using CSS:
+        1. Element Selector - specify HTML elements
+            element {}
+        2. Class Selector - specify classes
+            .class {}
+        3. ID Selector - specify IDs
+            #id {}
+
+    Create objects using selectors, and specify styling properties
+
+    CSS Properties:
+        background-color: specify background color
+        font-family: specify font family
+        color: specify text color
+        border: specify border settings
+
+    CSS is usually in an external file; Need to link the file in <head> section:
+        <link href="css file name" rel="stylehseet">
+
+    Some CSS properties are inherited by child elements, like font-family and font-size 
+
+
+L67 Introduction to the CSS Box Model
+    The Box Model fundamentally defines how elements are displayed on a page and how they are sized
+
+    The Box Model shows that each element has 4 sizes:
+        1. Margin:
+            space outside the box / between boxes
+        2. Border:
+            goes around the padding and the content
+        3. Padding:
+            transparent area around the content, inside the box
+        4. Content Height x Width:
+            text, images, etc.
+    
+    Fill Area:
+        area that gets filled with background color or images - includes content, padding, border
+
+    Global Reset to remove the default margins and paddings applied automatically to some elements:
+        Use the '*' selector to select all elements
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        box-sizing: border-box; sets the dimensions of the box to include/account for borders and padding
+
+    CSS Units:
+        px, %, em, rem  
+
+    You can add padding, margins, borders to specific sides of the box model
+
+    Use Chrome Dev Tools and Elements tab / Inspector tool to see the box model of each element easily
+
+    Can specify multiple selectors using a comma in between 
+
+    Child Selectors:
+        'parent selector' 'child selector' {}
+
+    More imporant topics include positioning, flexbox, css grid

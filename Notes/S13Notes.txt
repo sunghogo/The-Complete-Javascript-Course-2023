@@ -1,0 +1,174 @@
+L182. Section Intro
+
+
+L183. Section Roadmap
+
+
+L184. PROJECT: "Bankist" Website
+    href="#' will make the page jump to the top as the default behavior
+
+
+L185 How the DOM Really Works
+    DOM is the interface between JS code and HTML documents rendered in the web browser:
+        1. Allows us to make JS interact with the browser
+        2. We can write JS to:
+         - create, modify, and delete HTML elements
+         - set styles, classes, and attributes - listen and respond to events
+        3. DOM tree is generated from an HTML document, which we can then interact with
+        4. DOM is a very complex API that contains lots of methods and properties to interact with the DOM tree
+    
+    All these DOM methods and properties are organized into these different types of JS objects called "Node":
+        Node properties and methods:
+            1. Node.textContent / Node.value
+            2. Node.childNdoes
+            3. Node.parentNode
+            4. Node.cloneNode()
+
+        Node type has a couple of "child" types:
+            1. Element / HTMLElement (e.g. <P>Paragraph<P>):
+                Element type properties and methods:
+                    1. Element.innerHTML
+                    2. Element.classList
+                    3. Element.children
+                    4. Element.parentElement
+                    5. Element.append()
+                    6. Element.remove()
+                    7. Element.insertAdjacentHTML()
+                    8. Element.querySelector()
+                    9. Element.closest()
+                    10. Element.matches()
+                    11. Element.scrollIntoView()
+                    12. Element.setAttribute()
+
+                Element Node also has "child" types, one different type of HTMLElement per HTML element (e.g. HTMLButtonElement, HTMLDivElement, etc...)
+            2. Text (e.g. <p>PARAGRAPH<p>)
+            3. Comment (e.g. <!--COMMENT-->)
+            4. Document
+                Document type properties and methods:
+                    1. Document.querySelector()
+                    2. Document.createElement()
+                    3. Document.getElementById()
+
+    Node and Window types are also a "child" type of EventTarget:
+        EventTarget properties and methods:
+            1. EventTarger.addEventListener()
+            2. EventTarger.removeEventListener()
+
+        Window type is a Global object that has lots of methods and properties, many unrelated to DOM
+
+    We do not manually create these types, as they happened automatically behind the scenes
+
+    Inheritance of Methods and Properties:
+        All the child types will have access to the properties and methods of all their parent node types
+
+
+L186 Selecting, Creating, and Deleting Elements
+    'document' is not the real DOM element, and need to select the actual document element
+
+    document selector properties:
+        1. document.documentElement (refers to the root <html> element)
+        2. document.head
+        3. document.body
+
+    document selector methods:
+        1. document.querySelector(''/./#'selector name') (returns Node)
+        2. document.querySelectorAll(''/./#'selector name') (returns NodeList) 
+        3. document.getElementId('element ID')
+        4. document.getElementsByTagName('element tag') (returns HTMLCollection):
+            HTMLCollection is different from NodeList:
+                - HTMLCollection is a "live" connection meaning that if the DOM changes, then this collection is also immediately updated
+        5. document.getElementsByClassName('class name')
+
+    document element insertion/creation/modification methods:
+        1. document.insertAdjacentHTML()
+        2. document.createElement('element type') (only creates a LIVE DOM element that can only be at one place2)
+        3. 'element'.classList.add/remove('class name')
+        4. 'element'.prepend('element')
+        5. 'element'.append('element')
+        6. 'element'.cloneNode(true)
+        7. 'element'.before('element')
+        8. 'element'.after('element')
+        9. 'element'.remove() (Recent addition to DOM) 
+        10. 'element'.parentNode.removeChild('element') (Old way to remove elements)
+
+    element properties:
+        1. 'element'.value
+        2. 'element'.textContent
+        3. 'element'.innerHTML
+
+
+L187 Styles, Attributes and Classes
+    Remember you can set element styles using the style property:
+        'element'.style.'style prop name'
+
+        The style properties are:
+            1. In camelcase
+            2. Will be in-line styles in the HTML
+            3. Values need the corresponding measurement values in string
+
+        Accessing the style property to reveal the values only works for the styles we SET OURSELVES
+
+    getComputedStyle('element') is used to access the properties and values of an element:
+        This returns an object with all the style properties
+            
+        .'style prop name' on top of this function is used to access individual style properties
+
+        This can be used to with Number.parseFloat('style properties value', 10) to retrieve number values with the measurements
+
+    CSS has "custom properties" which are like variables:
+        This is usually declared in CSS under :root pseudo-class that selects the root element of the DOM tree (the <html> element tag):
+
+        Custom properties are declared and accessed using '--' (e.g. --main-color: pink')
+
+        This means custom properties can be accessed using:
+            document.documentElement.style.setProperty("--'custom property name'", 'value')
+
+    Remember we can also access/set HTML attributes using attribute properties:
+        'element'.'attribute name'
+
+        'element'.className is used to access/set the class name of the element instead of ".class"
+
+        JS we automatically create these properties for attributes specified in the HTML:
+            This only works for standard attributes, not custom ones
+            
+        To access nonstandard attribtues:
+            'element'.getAttribute("'attribute'")
+
+        To set nonstandard attributes:
+            'element'.setAttribute("'attribute'", 'value')
+
+        For the src/href attribute:
+            1. 'element'.src will give the absolute URL
+            2. .getAttribute("src") will give the relative URL as shown in the HTML
+
+    Data attributes are a special type of attribute:
+        data-'data property name'='value'
+
+        This is accessed using:
+            'element'.dataset.'data property name'
+
+            Remember properties are in camelcase in this format
+
+    Classes can be access and modified using the the following methods:
+        1. 'element'.classList.add('class 1', class 2', etc...)
+        2. 'element'.classList.remove('class 1', class 2', etc...)
+        3. 'element'.classList.toggle('class')
+        4. 'element'.classList.contains('class')
+
+        You can also set classes using 'element'.className but this is not recommended as the value will override all the existing classes
+
+*** COURSE WAS SLIGHTLY REVISED ON 6/3/2023 SO LESSON NUMBERS WILL BE DIFFERENT ****
+
+L180 Implementing Smooth Scrolling
+    'element'.getBoundingClientRect() returns an object containing the the element's:
+        1. x/y coords (relative to topleft corner)
+        2. width/height 
+        3. top/bottom/left/right
+
+        All of these are relative the current viewport
+
+    'event'.target property returns the element the event occuring
+
+    window.pageXOffset/pageYOffset returns the current scrolling offset
+
+    document.documentElement.clientHeight/clientWidth returns the viewport height/width
